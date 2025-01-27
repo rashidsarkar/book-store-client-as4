@@ -10,14 +10,11 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        whiteBG: "#f2f2f2",
-        text: "#6a6a6a",
-        heading: "#202020",
-        btn: "#a980ff",
-        hover: "#f4ff6b",
-        highlight: "#c6fe7a",
-        whiteTitle: "#ffff",
-        whiteText: "#c6fe7a",
+        bgC: "#FFFBCA",
+        bgText: "#4635B1",
+        bgHover: "#B771E5",
+        bgHighlight: "#AEEA94",
+
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
