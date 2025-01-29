@@ -21,14 +21,14 @@ export default function Banner() {
           <div className="flex flex-wrap gap-4">
             <a
               href="#"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#000957] transition duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#000957] transition duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 hover:ring-4 hover:ring-primary-300 dark:hover:ring-primary-900"
             >
               Browse Books
               <FaArrowRight className="w-6 h-6 ml-2 -mr-1" />
             </a>
             <a
               href="#"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold transition duration-300 border-2 rounded-lg text-primary-600 border-primary-600 hover:bg-primary-50 focus:ring-4 focus:ring-primary-100 dark:text-white dark:border-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold transition duration-300 border-2 rounded-lg text-primary-600 border-primary-600 hover:bg-primary-50 hover:ring-4 hover:ring-primary-100 dark:hover:text-white dark:hover:border-gray-300 dark:hover:bg-gray-700 dark:hover:ring-gray-800"
             >
               Explore Collections
             </a>

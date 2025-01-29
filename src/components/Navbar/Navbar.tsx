@@ -37,7 +37,6 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between h-24 px-4 mx-auto text-white bg-[#000957]">
-      {/* <h1 className="text-3xl font-bold text-[#FFEB00]">NARAKIDO</h1> */}
       <img
         className="w-[150px]  h-auto"
         src="https://i.ibb.co.com/hJMQGCzz/logo.png"
