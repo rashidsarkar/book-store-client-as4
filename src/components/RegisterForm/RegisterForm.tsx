@@ -10,23 +10,56 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../redux/features/auth/authApi";
+
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
+import { toast } from "sonner";
 
 export default function Register() {
+  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+  const [registrationUser] = useRegisterMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    // Show loading toast
+
+    const toastID = toast.loading("Registering...");
+
     console.log("Register Data:", data);
+    try {
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      };
+      console.log(userInfo);
+      const res = await registrationUser(userInfo).unwrap();
+      const user = verifyToken(res.data.token);
+      dispatch(setUser({ user: user, token: res.data.token }));
+      // const user = verifyToken(res.data.accessToken) as TUser;
+      console.log("res", res);
+      toast.success(res.data.message, { id: toastID });
 
-    // Simulating user registration (Replace this with API call)
-    // localStorage.setItem("user", JSON.stringify(data));
+      // toast.success("Registration Successful!", {
+      //   id: toastId, // Update the same toast
+      // });
 
-    // Redirect to login page after registration
-    // navigate("/login");
+      // Redirect to login page after successful registration
+      navigate("/");
+    } catch (error) {
+      // toast.error("Registration Failed", {
+      //   id: toastId, // Update the same toast
+      // });
+      console.log(error);
+    }
   };
 
   return (

@@ -1,30 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button"; // Ensure the path is correct
+import {
+  selectCurrentUser,
+  logout,
+  logOut,
+} from "../../redux/features/auth/authSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector(selectCurrentUser);
   const [nav, setNav] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Check if user is logged in from localStorage
-    const user = localStorage.getItem("isAuthenticated");
-    if (user) setIsAuthenticated(true);
-  }, []);
 
   const handleNav = () => {
     setNav(!nav);
   };
 
   const handleAuth = () => {
-    if (isAuthenticated) {
-      // Logout: Clear user authentication
-      localStorage.removeItem("isAuthenticated");
-      setIsAuthenticated(false);
+    if (data?.email) {
+      dispatch(logOut());
     } else {
-      // Navigate to login page
       navigate("/login");
     }
   };
@@ -64,7 +62,7 @@ const Navbar = () => {
         onClick={handleAuth}
         className="bg-[#577BC1] text-white hover:bg-[#344CB7]"
       >
-        {isAuthenticated ? "Logout" : "Login"}
+        {data?.email ? "Logout" : "Login"}
       </Button>
 
       {/* Mobile Navigation Icon */}

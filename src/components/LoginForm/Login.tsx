@@ -10,23 +10,44 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { verifyToken } from "../../utils/verifyToken";
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { toast } from "sonner";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Login Data:", data);
+    const toastID = toast.loading("Registering...");
 
-    // Simulating authentication (Replace this with API authentication)
-    // localStorage.setItem("isAuthenticated", "true");
+    // await login();
+    try {
+      const userInfo = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await login(userInfo).unwrap();
+      console.log(res);
+      toast.success(res.message, { id: toastID });
+      const user = verifyToken(res?.data?.token);
+      dispatch(setUser({ user: user, token: res.data.token }));
+    } catch (error) {
+      console.log(error);
+    }
 
     // Redirect to home page after login
-    // navigate("/");
+    navigate("/");
   };
 
   return (
