@@ -29,7 +29,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     console.log("Login Data:", data);
-    const toastID = toast.loading("Registering...");
+    const toastID = toast.loading("Logging in...");
 
     // await login();
     try {

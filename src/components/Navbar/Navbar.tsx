@@ -37,7 +37,12 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between h-24 px-4 mx-auto text-white bg-[#000957]">
-      <h1 className="text-3xl font-bold text-[#FFEB00]">NARAKIDO</h1>
+      {/* <h1 className="text-3xl font-bold text-[#FFEB00]">NARAKIDO</h1> */}
+      <img
+        className="w-[150px]  h-auto"
+        src="https://i.ibb.co.com/hJMQGCzz/logo.png"
+        alt="logo"
+      />
 
       {/* Desktop Navigation */}
       <ul className="hidden space-x-4 md:flex">
@@ -82,7 +87,9 @@ const Navbar = () => {
             : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
         }
       >
-        <h1 className="w-full text-3xl font-bold text-[#FFEB00] m-4">REACT.</h1>
+        <h1 className="w-full text-3xl font-bold text-[#FFEB00] m-4">
+          BookStore
+        </h1>
         {navItems.map((item) => (
           <li key={item.id}>
             <NavLink
