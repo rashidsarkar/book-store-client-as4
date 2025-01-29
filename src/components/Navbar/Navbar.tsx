@@ -1,47 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-
-// Ensure the Button component is correctly imported
-import { Button } from "../ui/button"; // Make sure this path is correct or define a basic Button component
+import { NavLink, useNavigate } from "react-router-dom";
+import { Button } from "../ui/button"; // Ensure the path is correct
 
 const Navbar = () => {
-  // State to manage the navbar's visibility
   const [nav, setNav] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
-  // Toggle function to handle the navbar's display
+  useEffect(() => {
+    // Check if user is logged in from localStorage
+    const user = localStorage.getItem("isAuthenticated");
+    if (user) setIsAuthenticated(true);
+  }, []);
+
   const handleNav = () => {
     setNav(!nav);
   };
 
-  // Array containing navigation items
+  const handleAuth = () => {
+    if (isAuthenticated) {
+      // Logout: Clear user authentication
+      localStorage.removeItem("isAuthenticated");
+      setIsAuthenticated(false);
+    } else {
+      // Navigate to login page
+      navigate("/login");
+    }
+  };
+
   const navItems = [
-    { id: 1, text: "Home" },
-    { id: 2, text: "Company" },
-    { id: 3, text: "Resources" },
-    { id: 4, text: "About" },
-    { id: 5, text: "Contact" },
+    { id: 1, text: "Home", path: "/" },
+    { id: 2, text: "Company", path: "/company" },
+    { id: 3, text: "Resources", path: "/resources" },
+    { id: 4, text: "About", path: "/about" },
+    { id: 5, text: "Contact", path: "/contact" },
   ];
 
   return (
     <div className="flex items-center justify-between h-24 px-4 mx-auto text-white bg-[#000957]">
-      {/* Logo */}
       <h1 className="text-3xl font-bold text-[#FFEB00]">NARAKIDO</h1>
 
       {/* Desktop Navigation */}
       <ul className="hidden space-x-4 md:flex">
         {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-4 hover:bg-[#344CB7] rounded-xl cursor-pointer duration-300 hover:text-white"
-          >
-            {item.text}
+          <li key={item.id}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `p-4 rounded-xl cursor-pointer duration-300 hover:bg-[#344CB7] hover:text-white ${
+                  isActive ? "bg-[#344CB7] text-white" : ""
+                }`
+              }
+            >
+              {item.text}
+            </NavLink>
           </li>
         ))}
       </ul>
 
-      {/* Login Button */}
-      <Button className="bg-[#577BC1] text-white hover:bg-[#344CB7]">
-        Login
+      {/* Login/Logout Button */}
+      <Button
+        onClick={handleAuth}
+        className="bg-[#577BC1] text-white hover:bg-[#344CB7]"
+      >
+        {isAuthenticated ? "Logout" : "Login"}
       </Button>
 
       {/* Mobile Navigation Icon */}
@@ -61,16 +84,20 @@ const Navbar = () => {
             : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
         }
       >
-        {/* Mobile Logo */}
         <h1 className="w-full text-3xl font-bold text-[#FFEB00] m-4">REACT.</h1>
-
-        {/* Mobile Navigation Items */}
         {navItems.map((item) => (
-          <li
-            key={item.id}
-            className="p-4 border-b rounded-xl hover:bg-[#344CB7] duration-300 hover:text-white cursor-pointer border-[#577BC1]"
-          >
-            {item.text}
+          <li key={item.id}>
+            <NavLink
+              to={item.path}
+              onClick={() => setNav(false)}
+              className={({ isActive }) =>
+                `block p-4 border-b rounded-xl hover:bg-[#344CB7] duration-300 hover:text-white cursor-pointer border-[#577BC1] ${
+                  isActive ? "bg-[#344CB7] text-white" : ""
+                }`
+              }
+            >
+              {item.text}
+            </NavLink>
           </li>
         ))}
       </ul>
