@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Mainlayout from "../mainlayout/mainlayout";
 import Home from "../pages/Home/Home/Home";
-import Login, { LoginForm } from "../components/LoginForm/Login";
-import AuthPage from "../components/AuthPage/AuthForm";
-import AuthForm from "../components/AuthPage/AuthForm";
+import Login from "../components/LoginForm/Login";
 import Register from "../components/RegisterForm/RegisterForm";
+import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
+import { routeGenerator } from "../utils/routesGenerator";
+import { adminPaths } from "./admin.routes";
+import Mainlayout from "../mainlayout/Mainlayout";
 
 export const router = createBrowserRouter([
   {
@@ -24,5 +25,10 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/admin",
+    element: <AdminDashboard />,
+    children: routeGenerator(adminPaths),
   },
 ]);

@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button"; // Ensure the path is correct
-import {
-  selectCurrentUser,
-  logout,
-  logOut,
-} from "../../redux/features/auth/authSlice";
+import { selectCurrentUser, logOut } from "../../redux/features/auth/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { Avatar, Tooltip, Menu, Dropdown } from "antd";
+import { userRole } from "../../layout/Sidebar";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -21,9 +19,9 @@ const Navbar = () => {
 
   const handleAuth = () => {
     if (data?.email) {
-      dispatch(logOut());
+      dispatch(logOut()); // Log out the user
     } else {
-      navigate("/login");
+      navigate("/login"); // Redirect to login page if not logged in
     }
   };
 
@@ -34,6 +32,33 @@ const Navbar = () => {
     { id: 4, text: "About", path: "/about" },
     { id: 5, text: "Contact", path: "/contact" },
   ];
+
+  const handleDashboard = () => {
+    if (data?.role === userRole.ADMIN) {
+      navigate("/admin/profile"); // Admin profile route
+    } else if (data?.role === userRole.USER) {
+      navigate("/user/profile"); // User profile route
+    }
+  };
+
+  const menu = (
+    <Menu>
+      {data?.email ? (
+        <>
+          <Menu.Item key="1" onClick={handleDashboard}>
+            Dashboard
+          </Menu.Item>
+          <Menu.Item key="2" onClick={handleAuth}>
+            Logout
+          </Menu.Item>
+        </>
+      ) : (
+        <Menu.Item key="3" onClick={handleAuth}>
+          Login
+        </Menu.Item>
+      )}
+    </Menu>
+  );
 
   return (
     <div className="flex items-center justify-between h-24 px-4 mx-auto text-white bg-[#000957]">
@@ -61,13 +86,27 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Login/Logout Button */}
-      <Button
-        onClick={handleAuth}
-        className="bg-[#577BC1] text-white hover:bg-[#344CB7]"
-      >
-        {data?.email ? "Logout" : "Login"}
-      </Button>
+      {/* Avatar & Tooltip for User Authentication */}
+      <div className="flex items-center space-x-4">
+        {data?.email ? (
+          <Tooltip title="Click for menu">
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <Avatar
+                size={40}
+                style={{ cursor: "pointer" }}
+                src={data?.avatarUrl || "https://i.pravatar.cc/150?img=3"} // Fallback avatar
+              />
+            </Dropdown>
+          </Tooltip>
+        ) : (
+          <Button
+            onClick={handleAuth}
+            className="bg-[#577BC1] text-white hover:bg-[#344CB7]"
+          >
+            Login
+          </Button>
+        )}
+      </div>
 
       {/* Mobile Navigation Icon */}
       <div onClick={handleNav} className="block md:hidden">

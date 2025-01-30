@@ -1,12 +1,10 @@
 import React from "react";
 import Card from "./Card";
+import { Link } from "react-router-dom";
 
 export default function Featured() {
   return (
     <div className="container px-4 py-12 mx-auto">
-      <h2 className="mb-8 text-3xl font-bold text-center text-gray-900 dark:text-white">
-        Featured Products
-      </h2>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* Card 1 */}
         <Card
@@ -32,6 +30,14 @@ export default function Featured() {
           reviewCount={80}
           rating={5}
         />
+      </div>
+      <div className="flex justify-center my-5">
+        <Link
+          href="#"
+          className=" inline-block px-6 py-3 text-lg font-semibold text-white bg-[#577BC1] hover:bg-[#344CB7] rounded-lg transition duration-300"
+        >
+          Vew All
+        </Link>
       </div>
     </div>
   );
