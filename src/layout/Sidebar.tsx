@@ -1,10 +1,12 @@
 import { Layout, Menu } from "antd";
 import { useAppSelector } from "../redux/hooks";
-import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import { logOut, selectCurrentUser } from "../redux/features/auth/authSlice";
 import { adminPaths } from "../router/admin.routes";
 import { sidebarItemsGenerator } from "../utils/sidebarItemsGenerator";
 import { LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 const { Sider } = Layout;
 export const userRole = {
@@ -13,6 +15,7 @@ export const userRole = {
 };
 
 export default function Sidebar() {
+  const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
 
@@ -30,7 +33,9 @@ export default function Sidebar() {
   // Handle Logout
   const handleLogout = () => {
     console.log("Logging out...");
-    navigate("/login");
+    navigate("/");
+    dispatch(logOut());
+    toast.info("You have been logged out");
   };
 
   return (
