@@ -1,3 +1,4 @@
+import ProfilePage from "../components/Dashborad/ProfilePage";
 import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
 import CreateBook from "../pages/dashboard/Admin/CreateBook";
 
@@ -5,7 +6,7 @@ export const adminPaths = [
   {
     name: "Profile",
     path: "profile",
-    element: <p>this is profile from admin patch</p>,
+    element: <ProfilePage />,
   },
   {
     name: "Cerate Book",

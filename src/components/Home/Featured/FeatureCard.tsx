@@ -10,7 +10,7 @@ interface CardProps {
   rating: number;
 }
 
-export default function Card({
+export default function FeatureCard({
   imageUrl,
   title,
   price,

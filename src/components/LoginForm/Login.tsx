@@ -42,12 +42,13 @@ export default function Login() {
       toast.success(res.message, { id: toastID });
       const user = verifyToken(res?.data?.token);
       dispatch(setUser({ user: user, token: res.data.token }));
+      navigate("/");
     } catch (error) {
       console.log(error);
+      toast.error(error?.data?.message, { id: toastID });
     }
 
     // Redirect to home page after login
-    navigate("/");
   };
 
   return (

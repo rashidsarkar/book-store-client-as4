@@ -58,6 +58,8 @@ export default function Register() {
       // toast.error("Registration Failed", {
       //   id: toastId, // Update the same toast
       // });
+      toast.error(error?.data?.message, { id: toastID });
+
       console.log(error);
     }
   };
