@@ -1,4 +1,5 @@
 import { baseApi } from "../../api/baseApi";
+import { RootState } from "../../store";
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +18,7 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
     changePassword: builder.mutation({
-      query: (userInfo) => ({
+      query: (passwordData) => ({
         url: "auth/change-password",
         method: "PATCH",
         body: passwordData,
@@ -29,9 +30,17 @@ const authApi = baseApi.injectEndpoints({
         if (userInfo?.email) {
           params.append("email", userInfo.email);
         }
+
         return {
-          url: `auth/getAllUser?${params.toString()}`,
-          method: "get",
+          url: `auth/getSingleUser?${params.toString()}`,
+          method: "GET",
+          // headers: (getState) => {
+          //   const token = (getState() as RootState).auth.token;
+          //   console.log(" token from authAPI", token);
+          //   return {
+          //     Authorization: token ? `Bearer ${token}` : "",
+          //   };
+          // },
         };
       },
     }),

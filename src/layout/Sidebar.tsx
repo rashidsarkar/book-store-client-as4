@@ -7,6 +7,7 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const { Sider } = Layout;
 export const userRole = {
@@ -18,6 +19,7 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
 
   let sidebarItems;
   const role = userRole.ADMIN;
@@ -42,25 +44,26 @@ export default function Sidebar() {
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
+      onCollapse={(isCollapsed) => setCollapsed(isCollapsed)}
       style={{
         height: "100vh",
         position: "sticky",
         top: "0",
         left: "0",
-        background: "linear-gradient(180deg, #000957 0%, #344CB7 100%)", // Gradient background
-        boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)", // Sidebar shadow
+        background: "linear-gradient(180deg, #000957 0%, #344CB7 100%)",
+        boxShadow: "4px 0px 10px rgba(0, 0, 0, 0.2)",
       }}
     >
       {/* Sidebar Header */}
       <div
         style={{
-          background: "rgba(255, 255, 255, 0.1)", // Semi-transparent background
+          background: "rgba(255, 255, 255, 0.1)",
           height: "4rem",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           padding: "1rem",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.1)", // Subtle border
+          borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
         <img
@@ -77,7 +80,7 @@ export default function Sidebar() {
         defaultSelectedKeys={["1"]}
         items={sidebarItems}
         style={{
-          background: "transparent", // Transparent background
+          background: "transparent",
           color: "white",
           fontSize: "1rem",
           fontWeight: "500",
@@ -85,34 +88,36 @@ export default function Sidebar() {
         }}
       />
 
-      {/* Logout Section */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          width: "100%",
-          padding: "1rem",
-          background: "rgba(255, 255, 255, 0.1)", // Semi-transparent background
-          textAlign: "center",
-          cursor: "pointer",
-          transition: "all 0.3s ease-in-out",
-          borderTop: "1px solid rgba(255, 255, 255, 0.1)", // Subtle border
-        }}
-        onClick={handleLogout}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(255, 235, 0, 0.8)"; // Hover effect
-          e.currentTarget.style.color = "#000957"; // Text contrast
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
-          e.currentTarget.style.color = "white";
-        }}
-      >
-        <LogoutOutlined
-          style={{ fontSize: "1.25rem", marginRight: "0.5rem" }}
-        />
-        <span style={{ fontSize: "1rem", fontWeight: "600" }}>Logout</span>
-      </div>
+      {/* Logout Section (Hidden when collapsed) */}
+      {!collapsed && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0",
+            width: "100%",
+            padding: "1rem",
+            background: "rgba(255, 255, 255, 0.1)",
+            textAlign: "center",
+            cursor: "pointer",
+            transition: "all 0.3s ease-in-out",
+            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+          }}
+          onClick={handleLogout}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(255, 235, 0, 0.8)";
+            e.currentTarget.style.color = "#000957";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
+            e.currentTarget.style.color = "white";
+          }}
+        >
+          <LogoutOutlined
+            style={{ fontSize: "1.25rem", marginRight: "0.5rem" }}
+          />
+          <span style={{ fontSize: "1rem", fontWeight: "600" }}>Logout</span>
+        </div>
+      )}
     </Sider>
   );
 }

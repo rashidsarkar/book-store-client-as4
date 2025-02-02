@@ -1,4 +1,5 @@
 import ProfilePage from "../components/Dashborad/ProfilePage";
+import UsersPage from "../components/Dashborad/UsersPage";
 import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
 import CreateBook from "../pages/dashboard/Admin/CreateBook";
 
@@ -7,6 +8,11 @@ export const adminPaths = [
     name: "Profile",
     path: "profile",
     element: <ProfilePage />,
+  },
+  {
+    name: "Users",
+    path: "users",
+    element: <UsersPage />,
   },
   {
     name: "Cerate Book",

@@ -1,4 +1,4 @@
-import { useForm, FieldErrors } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -8,7 +8,8 @@ import {
   useChangePasswordMutation,
   useGetSingleUserQuery,
 } from "../../redux/features/auth/authApi";
-import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { toast } from "sonner";
+
 interface FormData {
   oldPassword: string;
   newPassword: string;
@@ -19,24 +20,30 @@ export default function ProfilePage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
+
   const token = useAppSelector((state) => state.auth.token);
   const profile = useAppSelector((state) => state.auth.user);
-  const userData = useGetSingleUserQuery(profile?.email);
-  console.log(userData);
+  const { data: currentUser } = useGetSingleUserQuery({
+    email: profile?.email,
+  });
 
-  console.log(profile);
-  console.log(token);
   const [changePassword, { isLoading }] = useChangePasswordMutation();
 
   const onSubmit = async (data: FormData) => {
-    console.log("Password Change Request:", data);
+    const toastID = toast.loading("Updating password...");
 
     try {
       const res = await changePassword(data).unwrap();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      toast.success(res?.data?.message || "Password changed successfully!", {
+        id: toastID,
+      });
+      reset();
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to change password!", {
+        id: toastID,
+      });
     }
   };
 
@@ -44,11 +51,12 @@ export default function ProfilePage() {
     <div className="max-w-lg mx-auto mt-10">
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-semibold">Profile</h2>
-          <p className="text-gray-500">Manage your account settings</p>
+          <h2 className="text-xl font-semibold">
+            {currentUser?.data?.name || "N/A"}
+          </h2>
+          <p className="text-gray-500">Manage your account password</p>
         </CardHeader>
         <CardContent>
-          {/* Change Password Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="block font-medium">Old Password</label>
