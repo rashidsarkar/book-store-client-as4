@@ -15,11 +15,16 @@ export const adminPaths = [
     element: <UsersPage />,
   },
   {
-    name: "Cerate Book",
+    name: "Products ",
     children: [
       {
-        name: "Create A. Book",
-        path: "create-book",
+        name: "All Products",
+        path: "all-Products",
+        element: <CreateBook />,
+      },
+      {
+        name: "Create Products",
+        path: "create-products",
         element: <CreateBook />,
       },
       {
