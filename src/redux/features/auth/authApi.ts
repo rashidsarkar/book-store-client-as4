@@ -16,6 +16,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: userInfo,
       }),
+      invalidatesTags: ["users"],
     }),
     changePassword: builder.mutation({
       query: (passwordData) => ({
@@ -30,19 +31,13 @@ const authApi = baseApi.injectEndpoints({
         if (userInfo?.email) {
           params.append("email", userInfo.email);
         }
-
         return {
           url: `auth/getSingleUser?${params.toString()}`,
           method: "GET",
-          // headers: (getState) => {
-          //   const token = (getState() as RootState).auth.token;
-          //   console.log(" token from authAPI", token);
-          //   return {
-          //     Authorization: token ? `Bearer ${token}` : "",
-          //   };
-          // },
         };
       },
+
+      providesTags: ["users"],
     }),
   }),
 });

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Table, Button, Tag, Space, ConfigProvider } from "antd";
 import { BlockOutlined, UnlockOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
+import {
+  useBlockUserMutation,
+  useGetAllUserQuery,
+} from "../../redux/features/admin/adminApi";
 
 interface User {
   key: string;
@@ -11,28 +15,25 @@ interface User {
 }
 
 export default function UsersPage() {
-  const users = [
-    { key: "1", name: "John Doe", email: "john@example.com", isBlocked: false },
-    {
-      key: "2",
-      name: "Jane Smith",
-      email: "jane@example.com",
-      isBlocked: true,
-    },
-    {
-      key: "3",
-      name: "Alice Brown",
-      email: "alice@example.com",
-      isBlocked: false,
-    },
-  ];
+  const { data: allUser, isFetching } = useGetAllUserQuery(undefined);
+  const [blockuser] = useBlockUserMutation();
 
-  const toggleBlockStatus = (key: string) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user.key === key ? { ...user, isBlocked: !user.isBlocked } : user
-      )
-    );
+  const users: User = allUser?.data?.map((item) => {
+    return {
+      key: item._id,
+      name: item.name,
+      email: item.email,
+      isBlocked: item.isBlocked,
+    };
+  });
+  const toggleBlockStatus = async (key: string, isBlocked: boolean) => {
+    const userInfo = {
+      key,
+      setStatusTo: { runningStatus: isBlocked },
+    };
+
+    const res = await blockuser(userInfo);
+    console.log(res);
   };
 
   const columns: TableProps<User>["columns"] = [
@@ -73,7 +74,7 @@ export default function UsersPage() {
         <Button
           type={record.isBlocked ? "primary" : "default"}
           danger={!record.isBlocked}
-          onClick={() => toggleBlockStatus(record.key)}
+          onClick={() => toggleBlockStatus(record.key, record.isBlocked)}
           icon={record.isBlocked ? <UnlockOutlined /> : <BlockOutlined />}
           className="flex items-center gap-1"
         >
@@ -102,6 +103,7 @@ export default function UsersPage() {
         <Table
           columns={columns}
           dataSource={users}
+          loading={isFetching}
           pagination={{ pageSize: 5 }}
           scroll={{ x: "max-content" }}
           className="overflow-hidden rounded-lg"
