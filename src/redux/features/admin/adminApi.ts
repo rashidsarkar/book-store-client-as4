@@ -24,10 +24,21 @@ const adminApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["users"],
     }),
+    addBook: builder.mutation({
+      query: (bookInfo) => {
+        return {
+          url: `book`,
+          method: "POST",
+          body: bookInfo,
+        };
+      },
+      invalidatesTags: ["book"],
+    }),
   }),
 });
 
-export const { useGetAllUserQuery, useBlockUserMutation } = adminApi;
+export const { useGetAllUserQuery, useBlockUserMutation, useAddBookMutation } =
+  adminApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({
 //       url: "/auth/register",

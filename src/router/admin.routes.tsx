@@ -18,13 +18,13 @@ export const adminPaths = [
     name: "Products ",
     children: [
       {
-        name: "All Products",
-        path: "all-Products",
+        name: "All Book",
+        path: "all-book",
         element: <CreateBook />,
       },
       {
-        name: "Create Products",
-        path: "create-products",
+        name: "Create Book",
+        path: "create-book",
         element: <CreateBook />,
       },
       {
