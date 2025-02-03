@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import BookFilter from "../../components/BookFilter/BookFilter";
 import { useGetBooksQuery } from "../../redux/features/admin/adminApi";
+import FeatureCard from "../../components/Home/Featured/FeatureCard";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 type FilterState = {
   filter?: string | null;
@@ -10,29 +12,29 @@ type FilterState = {
 };
 
 export default function AllProduct() {
-  const [filters, setFilters] = useState<FilterState>({
+  const [filters, setFilters] = React.useState<FilterState>({
     search: "",
     filter: "",
     sortOrder: "",
     sortBy: "",
   });
-  //   console.log(filters);
+
   const filterData = {
     ...filters,
     search: filters.search?.trim(),
   };
-  console.log(filterData);
-  const { data: books } = useGetBooksQuery(filters);
-  console.log(books);
+
+  const { data: books, isFetching } = useGetBooksQuery(filterData);
 
   return (
     <div className="container p-6 mx-auto">
-      {/* Filter UI */}
       <BookFilter onFilter={(data) => setFilters(data)} />
 
-      {/* Books Grid - You can use filters state to fetch books */}
-      <div className="text-center text-gray-500">
-        Books will be displayed here...
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <LoadingSpinner loading={isFetching} />
+        {books?.data.map((book) => (
+          <FeatureCard key={book._id} book={book} />
+        ))}
       </div>
     </div>
   );

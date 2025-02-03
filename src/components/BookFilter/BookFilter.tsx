@@ -42,11 +42,16 @@ export default function BookFilter({
         </div>
 
         {/* filter Dropdown */}
-        <Select onValueChange={(value) => setValue("filter", value)}>
+        <Select
+          onValueChange={(value) =>
+            setValue("filter", value === "all" ? "" : value)
+          }
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select Category" />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="all">All</SelectItem>
             <SelectItem value="Romance">Romance</SelectItem>
             <SelectItem value="Science Fiction">Science Fiction</SelectItem>
             <SelectItem value="Mystery">Mystery</SelectItem>
