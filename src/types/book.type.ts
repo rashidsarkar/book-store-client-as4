@@ -4,4 +4,6 @@ export interface TBook {
   price: number | string;
   author: string;
   category: string;
+  quantity: number;
+  description: string;
 }

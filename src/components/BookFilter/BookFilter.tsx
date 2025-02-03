@@ -12,10 +12,10 @@ import {
 import { FaSearch } from "react-icons/fa";
 
 type FilterValues = {
-  search: string;
-  category: string | null;
-  sortBy: "price" | "quantity" | null;
-  sortOrder: "asc" | "desc" | null;
+  search?: string;
+  filter?: string;
+  sortBy?: "price" | "quantity";
+  sortOrder?: "asc" | "desc";
 };
 
 export default function BookFilter({
@@ -41,8 +41,8 @@ export default function BookFilter({
           <FaSearch className="absolute text-gray-400 right-3 top-3" />
         </div>
 
-        {/* Category Dropdown */}
-        <Select onValueChange={(value) => setValue("category", value || null)}>
+        {/* filter Dropdown */}
+        <Select onValueChange={(value) => setValue("filter", value)}>
           <SelectTrigger>
             <SelectValue placeholder="Select Category" />
           </SelectTrigger>
@@ -50,13 +50,17 @@ export default function BookFilter({
             <SelectItem value="Romance">Romance</SelectItem>
             <SelectItem value="Science Fiction">Science Fiction</SelectItem>
             <SelectItem value="Mystery">Mystery</SelectItem>
+
+            <SelectItem value="Non-Fiction">Non-Fiction</SelectItem>
+
+            <SelectItem value="Biography">Biography</SelectItem>
           </SelectContent>
         </Select>
 
         {/* Sort By Dropdown */}
         <Select
           onValueChange={(value) =>
-            setValue("sortBy", value as "price" | "quantity" | null)
+            setValue("sortBy", value as "price" | "quantity")
           }
         >
           <SelectTrigger>
@@ -72,7 +76,7 @@ export default function BookFilter({
         <Select
           disabled={!sortBy} // Disable if sortBy is not selected
           onValueChange={(value) =>
-            setValue("sortOrder", value as "asc" | "desc" | null)
+            setValue("sortOrder", value as "asc" | "desc")
           }
         >
           <SelectTrigger
@@ -88,7 +92,10 @@ export default function BookFilter({
       </div>
 
       {/* Submit Button */}
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        className="bg-[#577BC1] text-white hover:bg-[#344CB7] w-full"
+      >
         Apply Filters
       </Button>
     </form>

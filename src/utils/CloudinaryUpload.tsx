@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 
 interface CloudinaryUploadProps {
   onUpload: (url: string) => void;
+  clearTrigger: boolean; // New prop to trigger clearing
 }
 
-const CLOUD_NAME = "dcuiajhts"; // Replace with your Cloudinary cloud name
-const UPLOAD_PRESET = "assingment4"; // Replace with your Cloudinary upload preset
+const CLOUD_NAME = "dcuiajhts";
+const UPLOAD_PRESET = "assingment4";
 
-export default function CloudinaryUpload({ onUpload }: CloudinaryUploadProps) {
+export default function CloudinaryUpload({
+  onUpload,
+  clearTrigger,
+}: CloudinaryUploadProps) {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference for file input
+
+  useEffect(() => {
+    if (clearTrigger) {
+      setImageUrl(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // Clear the file input field
+      }
+    }
+  }, [clearTrigger]);
 
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -21,7 +35,6 @@ export default function CloudinaryUpload({ onUpload }: CloudinaryUploadProps) {
     if (!file) return;
 
     setLoading(true);
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", UPLOAD_PRESET);
@@ -36,7 +49,6 @@ export default function CloudinaryUpload({ onUpload }: CloudinaryUploadProps) {
       );
 
       const data = await response.json();
-      console.log("Cloudinary Response:", data); // Debugging step
 
       if (data.secure_url) {
         setImageUrl(data.secure_url);
@@ -55,7 +67,12 @@ export default function CloudinaryUpload({ onUpload }: CloudinaryUploadProps) {
   return (
     <div className="space-y-2">
       <Label>Upload Image</Label>
-      <Input type="file" accept="image/*" onChange={handleImageUpload} />
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        ref={fileInputRef}
+      />
       {loading && <p className="text-sm text-gray-500">Uploading...</p>}
       {imageUrl && (
         <img src={imageUrl} alt="Uploaded" className="w-32 h-32 mt-2 rounded" />

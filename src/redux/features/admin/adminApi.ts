@@ -34,21 +34,32 @@ const adminApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["book"],
     }),
-    getBook: builder.mutation({
-      query: (bookInfo) => {
+    getBooks: builder.query({
+      query: ({ search, sortBy, sortOrder, filter }) => {
+        // Construct query parameters
+        const params = new URLSearchParams();
+
+        if (search) params.append("search", search);
+        if (sortBy) params.append("sortBy", sortBy);
+        if (sortOrder) params.append("sortOrder", sortOrder);
+        if (filter) params.append("filter", filter);
+
         return {
-          url: `book`,
-          method: "POST",
-          body: bookInfo,
+          url: `book?${params.toString()}`,
+          method: "GET",
         };
       },
-      invalidatesTags: ["book"],
+      providesTags: ["book"],
     }),
   }),
 });
 
-export const { useGetAllUserQuery, useBlockUserMutation, useAddBookMutation } =
-  adminApi;
+export const {
+  useGetAllUserQuery,
+  useBlockUserMutation,
+  useAddBookMutation,
+  useGetBooksQuery,
+} = adminApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({
 //       url: "/auth/register",
