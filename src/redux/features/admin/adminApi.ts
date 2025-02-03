@@ -34,6 +34,16 @@ const adminApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["book"],
     }),
+    getBook: builder.mutation({
+      query: (bookInfo) => {
+        return {
+          url: `book`,
+          method: "POST",
+          body: bookInfo,
+        };
+      },
+      invalidatesTags: ["book"],
+    }),
   }),
 });
 

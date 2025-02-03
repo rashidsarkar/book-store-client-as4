@@ -1,6 +1,7 @@
 import ProfilePage from "../components/Dashborad/ProfilePage";
 import UsersPage from "../components/Dashborad/UsersPage";
 import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
+import AllBook from "../pages/dashboard/Admin/AllBook";
 import CreateBook from "../pages/dashboard/Admin/CreateBook";
 
 export const adminPaths = [
@@ -20,7 +21,7 @@ export const adminPaths = [
       {
         name: "All Book",
         path: "all-book",
-        element: <CreateBook />,
+        element: <AllBook />,
       },
       {
         name: "Create Book",

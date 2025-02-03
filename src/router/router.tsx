@@ -6,6 +6,7 @@ import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
 import { routeGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import Mainlayout from "../mainlayout/Mainlayout";
+import AllProduct from "../pages/AllProduct/AllProduct";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/books",
+        element: <AllProduct />,
       },
       {
         path: "/login",
