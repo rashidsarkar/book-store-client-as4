@@ -16,14 +16,7 @@ import {
 import { Button } from "../../../components/ui/button";
 import { useState } from "react";
 import { useAddBookMutation } from "../../../redux/features/admin/adminApi";
-
-interface TBook {
-  name: string;
-  image: string;
-  price: number;
-  author: string;
-  category: string;
-}
+import { TBook } from "../../../types/book.type";
 
 export default function CreateBook() {
   const [addbook] = useAddBookMutation();
