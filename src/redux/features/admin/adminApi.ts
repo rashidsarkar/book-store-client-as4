@@ -51,6 +51,27 @@ const adminApi = baseApi.injectEndpoints({
       },
       providesTags: ["book"],
     }),
+    updateBook: builder.mutation({
+      query: (bookInfo) => {
+        const { id } = bookInfo;
+
+        return {
+          url: `book/${id}`,
+          method: "PATCH",
+          body: bookInfo,
+        };
+      },
+      invalidatesTags: ["book"],
+    }),
+    getBookById: builder.query({
+      query: (id) => {
+        return {
+          url: `book/book/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["book"],
+    }),
   }),
 });
 
@@ -59,6 +80,8 @@ export const {
   useBlockUserMutation,
   useAddBookMutation,
   useGetBooksQuery,
+  useGetBookByIdQuery,
+  useUpdateBookMutation,
 } = adminApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({

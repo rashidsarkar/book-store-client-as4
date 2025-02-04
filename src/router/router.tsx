@@ -8,6 +8,7 @@ import { adminPaths } from "./admin.routes";
 import Mainlayout from "../mainlayout/Mainlayout";
 import AllProduct from "../pages/AllProduct/AllProduct";
 import SingleProduct from "../pages/AllProduct/SingleProduct";
+import UpdateBook from "../pages/dashboard/Admin/UpdateBook";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
       {
         path: "/books",
         element: <AllProduct />,
+      },
+      {
+        path: "/books/:id",
+        element: <SingleProduct />,
+      },
+      {
+        path: "/books/update/:id",
+        element: <UpdateBook />,
       },
       {
         path: "/books/:id",
