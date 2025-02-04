@@ -1,10 +1,9 @@
-import React from "react";
 import Banner from "../../../components/Home/Banner/Banner";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Featured from "../../../components/Home/Featured/Featured";
-import { useAppSelector } from "../../../redux/hooks";
-import { verifyToken } from "../../../utils/verifyToken";
 import Footer from "../../../components/Footer/Footer";
+import BlogsSection from "../../../components/Home/BlogsSection/BlogsSection";
+import ProductReview from "../../../components/Home/ProductReview/ProductReview";
 
 export default function Home() {
   return (
@@ -18,6 +17,15 @@ export default function Home() {
         subtitleColor="text-primary-600"
       />
       <Featured />
+      <SectionTitle
+        title="Our Achievements"
+        subtitle="Celebrating Milestones in Our Journey"
+        align="center"
+        titleColor="text-gray-900"
+        subtitleColor="text-primary-600"
+      />
+      <ProductReview />
+
       <Footer />
     </div>
   );

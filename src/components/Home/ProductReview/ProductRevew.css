@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.counters-1 {
+  background: url(https://images.unsplash.com/photo-1589998059171-988d887df646);
+  z-index: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/** Counters 1 start **/
+.counters-1 {
+  background: url(https://images.unsplash.com/photo-1589998059171-988d887df646);
+  z-index: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.counter-box-1 {
+  position: relative;
+  z-index: 2;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  overflow: hidden;
+  transition: 0.3s cubic-bezier(0.24, 0.74, 0.58, 1);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.counter-box-1:hover {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.counter-box-1 h1 {
+  font-weight: 600;
+  color: #fff;
+  margin: 5px 0 10px;
+  font-size: 35px;
+}
+
+.counter-box-1 i {
+  font-size: 55px;
+  line-height: inherit;
+  display: inline-block;
+  vertical-align: middle;
+  transition: 0.9s cubic-bezier(0.24, 0.74, 0.58, 1);
+}
+
+.counter-box-1:hover h5 {
+  color: #ffb400;
+}
+.counter-box-1:hover i {
+  transform: rotateY(360deg);
+  color: #fff;
+}
+
+.counter-box-1 h5 {
+  margin: 0;
+  font-size: 22px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.counter-box-1:hover h5 span {
+  color: #fff;
+}
+
+.counter-box-1 h5 span {
+  color: #ffb400;
+}
+
+.counter-box-1 i {
+  color: #ffb400;
+}
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before,
+[class^="flaticon-"]:after,
+[class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-size: auto;
+  font-style: normal;
+  margin-left: 0;
+}

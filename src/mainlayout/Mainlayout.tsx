@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 export default function Mainlayout() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration in milliseconds
+      once: true, // Whether animation should only happen once
+    });
+  }, []);
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-      
+    <div className="min-h-screen mx-auto max-w-7xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <Navbar />
       <Outlet />
     </div>

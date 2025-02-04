@@ -1,0 +1,28 @@
+{
+    "weddingTeam": [
+      {
+        "id": 1,
+        "name": "Margarate Bennet",
+        "role": "Dress Designer",
+        "image": "https://lovelove-react.wpocean.com/static/media/img-1.d4433ed24264f49d6037.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Robert William",
+        "role": "Wedding Planner",
+        "image": "https://lovelove-react.wpocean.com/static/media/img-2.12d206bd2c655cb5d77e.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Henry D’suza",
+        "role": "Assistant",
+        "image": "https://lovelove-react.wpocean.com/static/media/img-3.1ea517e3171d47b4d232.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Jenefer Abram",
+        "role": "Lead Assistant",
+        "image": "https://lovelove-react.wpocean.com/static/media/img-4.c1572fbbba35712ff2f4.jpg"
+      }
+    ]
+  }
