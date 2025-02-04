@@ -9,6 +9,7 @@ import Mainlayout from "../mainlayout/Mainlayout";
 import AllProduct from "../pages/AllProduct/AllProduct";
 import SingleProduct from "../pages/AllProduct/SingleProduct";
 import UpdateBook from "../pages/dashboard/Admin/UpdateBook";
+import About from "../pages/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/register",
