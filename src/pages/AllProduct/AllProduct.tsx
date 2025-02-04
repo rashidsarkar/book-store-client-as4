@@ -3,6 +3,7 @@ import BookFilter from "../../components/BookFilter/BookFilter";
 import { useGetBooksQuery } from "../../redux/features/admin/adminApi";
 import FeatureCard from "../../components/Home/Featured/FeatureCard";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import { TBook } from "../../types/book.type";
 
 type FilterState = {
   filter?: string | null;
@@ -32,7 +33,7 @@ export default function AllProduct() {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <LoadingSpinner loading={isFetching} />
-        {books?.data.map((book) => (
+        {books?.data.map((book: TBook) => (
           <FeatureCard key={book._id} book={book} />
         ))}
       </div>

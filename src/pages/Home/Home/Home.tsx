@@ -4,6 +4,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Featured from "../../../components/Home/Featured/Featured";
 import { useAppSelector } from "../../../redux/hooks";
 import { verifyToken } from "../../../utils/verifyToken";
+import Footer from "../../../components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         subtitleColor="text-primary-600"
       />
       <Featured />
+      <Footer />
     </div>
   );
 }
