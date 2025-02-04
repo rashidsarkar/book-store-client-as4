@@ -54,6 +54,7 @@ const adminApi = baseApi.injectEndpoints({
     updateBook: builder.mutation({
       query: (bookInfo) => {
         const { id } = bookInfo;
+        // console.log(bookInfo);
 
         return {
           url: `book/${id}`,
@@ -72,6 +73,15 @@ const adminApi = baseApi.injectEndpoints({
       },
       providesTags: ["book"],
     }),
+    detedBookById: builder.mutation({
+      query: (id) => {
+        return {
+          url: `book/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["book"],
+    }),
   }),
 });
 
@@ -82,6 +92,7 @@ export const {
   useGetBooksQuery,
   useGetBookByIdQuery,
   useUpdateBookMutation,
+  useDetedBookByIdMutation,
 } = adminApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({
