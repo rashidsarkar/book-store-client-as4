@@ -13,6 +13,7 @@ export default function SingleProduct() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const book: TBook = state?.book;
+  const navigation = useNavigate();
 
   if (!book) {
     return (
@@ -132,7 +133,7 @@ export default function SingleProduct() {
             <Button
               className="px-8 py-4 text-lg bg-[#577BC1] hover:bg-[#344CB7] text-white"
               onClick={() => {
-                /* Add purchase logic here */
+                navigate("/checkOut", { state: book });
               }}
             >
               Purchase Now

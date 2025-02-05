@@ -18,3 +18,10 @@ export type TRoute = {
   path: string;
   element: ReactNode;
 };
+
+export type TUserFromRedux = {
+  email: string;
+  exp: number;
+  iat: number;
+  role: string;
+};

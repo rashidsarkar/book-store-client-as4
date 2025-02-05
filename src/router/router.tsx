@@ -11,6 +11,7 @@ import SingleProduct from "../pages/AllProduct/SingleProduct";
 import UpdateBook from "../pages/dashboard/Admin/UpdateBook";
 import About from "../pages/About/About";
 import { userPath } from "./user.routes";
+import CheckoutPage from "../pages/dashboard/user/CheckoutPage/CheckoutPage";
 
 export const router = createBrowserRouter([
   {
@@ -60,5 +61,9 @@ export const router = createBrowserRouter([
     path: "/user",
     element: <AdminDashboard />,
     children: routeGenerator(userPath),
+  },
+  {
+    path: "/checkOut",
+    element: <CheckoutPage />,
   },
 ]);

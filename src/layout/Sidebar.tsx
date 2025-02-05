@@ -16,12 +16,14 @@ export const userRole = {
   USER: "user",
 };
 
+
+
 export default function Sidebar() {
   const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  console.log(user?.role);
+  console.log(user);
   let sidebarItems;
   const role = user?.role;
 
