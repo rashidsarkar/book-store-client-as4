@@ -10,6 +10,7 @@ import AllProduct from "../pages/AllProduct/AllProduct";
 import SingleProduct from "../pages/AllProduct/SingleProduct";
 import UpdateBook from "../pages/dashboard/Admin/UpdateBook";
 import About from "../pages/About/About";
+import { userPath } from "./user.routes";
 
 export const router = createBrowserRouter([
   {
@@ -54,5 +55,10 @@ export const router = createBrowserRouter([
     path: "/admin",
     element: <AdminDashboard />,
     children: routeGenerator(adminPaths),
+  },
+  {
+    path: "/user",
+    element: <AdminDashboard />,
+    children: routeGenerator(userPath),
   },
 ]);

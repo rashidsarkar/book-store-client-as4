@@ -25,8 +25,6 @@ export default function Home() {
         subtitleColor="text-primary-600"
       />
       <ProductReview />
-
-      <Footer />
     </div>
   );
 }

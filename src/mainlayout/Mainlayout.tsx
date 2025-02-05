@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Footer from "../components/Footer/Footer";
 export default function Mainlayout() {
   useEffect(() => {
     AOS.init({
@@ -15,6 +16,7 @@ export default function Mainlayout() {
     <div className="min-h-screen mx-auto max-w-7xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <Navbar />
       <Outlet />
+      <Footer />
     </div>
   );
 }

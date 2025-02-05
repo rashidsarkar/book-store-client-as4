@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useState } from "react";
+import { userPath } from "../router/user.routes";
 
 const { Sider } = Layout;
 export const userRole = {
@@ -20,15 +21,17 @@ export default function Sidebar() {
   const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-
+  console.log(user?.role);
   let sidebarItems;
-  const role = userRole.ADMIN;
+  const role = user?.role;
 
   switch (role) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
-    default:
+    case userRole.USER:
+      sidebarItems = sidebarItemsGenerator(userPath, userRole.USER);
+
       break;
   }
 

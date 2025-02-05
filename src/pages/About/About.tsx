@@ -152,11 +152,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="pt-16 ">
-        <Footer />
-      </section>
     </div>
   );
 }
