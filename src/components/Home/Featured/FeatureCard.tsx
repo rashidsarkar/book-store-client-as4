@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TBook } from "../../../types/book.type";
+import { useGetBookByIdQuery } from "../../../redux/features/admin/adminApi";
 
 export default function FeatureCard({ book }: { book: TBook }) {
   const { _id, image, name, price, author, category, quantity } = book;
+  // const {}=useGetBookByIdQuery(_id)
 
   return (
     <div className="overflow-hidden bg-white rounded-xl shadow-lg dark:bg-gray-800 hover:shadow-2xl transition-transform duration-300 transform hover:scale-[1.02]">

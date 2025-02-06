@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useAppSelector } from "../../../../redux/hooks";
@@ -26,13 +26,20 @@ import { Button } from "../../../../components/ui/button";
 import { Label } from "../../../../components/ui/label";
 import { toast } from "sonner";
 
-import { useAddOrderMutation } from "../../../../redux/features/order/orderApi";
+import {
+  useAddOrderMutation,
+  useAddOrderWithPaymentIdMutation,
+} from "../../../../redux/features/order/orderApi";
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
   const [createOrder, { isLoading: orderLoading, error }] =
     useAddOrderMutation();
+  const [addOrderWithID, { isLoading: paymentLoading }] =
+    useAddOrderWithPaymentIdMutation();
   const user = useAppSelector(selectCurrentUser);
   const { state } = useLocation();
+
   const { data: currentUser, isLoading } = useGetSingleUserQuery({
     email: user?.email,
   });
@@ -50,96 +57,113 @@ const CheckoutForm = () => {
       quantity: 1,
     },
   });
-
+  if (!book) {
+    navigate("/");
+    return null; // Prevent rendering further
+  }
   const totalPrice = (book.price * form.watch("quantity")).toFixed(2);
 
   const handleSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Adding order...");
     if (data.quantity > book.quantity) {
-      toast.error("Quantity exceeds available stock");
+      toast.error("Quantity exceeds available stock", { id: toastId });
       return;
     }
 
+    const orderData: any = {
+      product: book._id,
+      quantity: Number(data.quantity),
+      userId: currentUser?.data._id,
+      paymentMethod: selectedPayment,
+      totalPrice: Number(totalPrice),
+    };
+
     if (selectedPayment === "stripe") {
       if (!stripe || !elements) {
-        toast.error("Stripe is not properly initialized.");
+        toast.error("Stripe is not properly initialized.", { id: toastId });
         return;
       }
 
-      const { error: stripeError } = await stripe.createPaymentMethod({
-        type: "card",
-        card: elements.getElement(CardElement)!,
-      });
+      // Step 1: Create order and get clientSecret from the backend
+      try {
+        const orderResponse = await createOrder(orderData).unwrap();
 
-      if (stripeError) {
-        toast.error(stripeError.message || "Payment failed");
-        return;
-      }
+        const clientSecret = orderResponse?.data?.clientSecret;
 
-      // Create payment intent and process payment
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        "<YourClientSecret>", // Replace this with the actual client secret from your backend
-        {
-          payment_method: {
-            card: elements.getElement(CardElement)!,
-            billing_details: {
-              name: currentUser?.data?.name || "Guest",
-              email: currentUser?.data?.email || "guest@example.com",
+        if (!clientSecret) {
+          toast.error("Failed to get client secret", { id: toastId });
+          return;
+        }
+
+        // Step 2: Confirm payment with Stripe
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+          clientSecret,
+          {
+            payment_method: {
+              card: elements.getElement(CardElement)!,
+              billing_details: {
+                name: currentUser?.data?.name || "Guest",
+                email: currentUser?.data?.email || "guest@example.com",
+              },
             },
-          },
+          }
+        );
+
+        if (error) {
+          console.log(error);
+          toast.error(error.message || "Payment failed", { id: toastId });
+          return;
         }
-      );
 
-      if (error) {
-        toast.error(error.message || "Payment failed");
-        return;
-      }
-
-      if (paymentIntent?.status === "succeeded") {
-        setTransactionId(paymentIntent.id);
-        toast.success("Payment successful!");
-
-        // Save order details to the backend
-        const orderData = {
-          product: book._id,
-          quantity: data.quantity,
-          userId: currentUser?.data._id,
-          paymentMethod: selectedPayment,
-          totalPrice: Number(totalPrice),
-          transactionId: paymentIntent.id,
-        };
-
-        try {
-          await createOrder(orderData).unwrap();
-        } catch (error) {
-          toast.error("Failed to create order.");
+        if (paymentIntent?.status === "succeeded") {
+          setTransactionId(paymentIntent.id);
+          toast.success("Payment successful!", { id: toastId });
+          console.log(paymentIntent.id);
+          const fullOrderDetails = {
+            ...orderData,
+            transactionId: paymentIntent.id,
+          };
+          // Update order with transaction ID
+          const resultWithPaymentID = await addOrderWithID({
+            ...orderData,
+            transactionId: paymentIntent.id,
+          });
+          console.log(resultWithPaymentID);
+          navigate(`/books`);
+          return;
+        } else {
+          toast.error("Payment failed", { id: toastId });
         }
-      } else {
-        toast.error("Payment failed");
+      } catch (error) {
+        console.error("Payment processing error:", error);
+        toast.error("Failed to complete payment.", { id: toastId });
       }
     } else {
-      // Handle cash on delivery flow
-      const orderData = {
-        product: book._id,
-        quantity: data.quantity,
-        userId: currentUser?.data._id,
-        paymentMethod: selectedPayment,
-        totalPrice: Number(totalPrice),
-      };
-
+      // Cash on Delivery flow
       try {
         await createOrder(orderData).unwrap();
-        toast.success("Order placed successfully! Pay on delivery.");
+        toast.success("Order placed successfully! Pay on delivery.", {
+          id: toastId,
+        });
+        navigate(`/books`);
       } catch (error) {
-        toast.error("Failed to create order.");
+        console.log(error);
+        toast.error("Failed to create order.", { id: toastId });
       }
     }
   };
-
   return (
     <div className="max-w-4xl p-6 mx-auto">
       {isLoading && <LoadingSpinner loading={isLoading} />}
       <Card className="mb-6">
-        <CardHeader className="text-xl font-bold">Product Details</CardHeader>
+        <CardHeader className="text-xl font-bold ">
+          <div className="flex justify-between">
+            <p>Product Details</p>
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
+              Back
+            </Button>
+          </div>
+        </CardHeader>
         <CardContent className="flex items-center gap-4">
           <img
             src={book.image}

@@ -131,12 +131,13 @@ export default function SingleProduct() {
           {/* Additional Actions */}
           <div className="mt-8 text-center">
             <Button
-              className="px-8 py-4 text-lg bg-[#577BC1] hover:bg-[#344CB7] text-white"
+              className="px-8 py-4 text-lg bg-[#577BC1] hover:bg-[#344CB7] text-white disabled:bg-gray-400 disabled:cursor-not-allowed"
               onClick={() => {
                 navigate("/checkOut", { state: book });
               }}
+              disabled={book.quantity <= 0}
             >
-              Purchase Now
+              {book.quantity > 0 ? "Purchase Now" : "Out of Stock"}
             </Button>
           </div>
         </div>

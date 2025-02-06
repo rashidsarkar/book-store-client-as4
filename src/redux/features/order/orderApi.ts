@@ -22,6 +22,16 @@ const orderApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["book", "order"],
     }),
+    addOrderWithPaymentId: builder.mutation({
+      query: (orderData) => {
+        return {
+          url: `order/create-order-with-Payment`,
+          method: "POST",
+          body: orderData,
+        };
+      },
+      invalidatesTags: ["book", "order"],
+    }),
 
     // updateBook: builder.mutation({
     //   query: (bookInfo) => {
@@ -57,7 +67,8 @@ const orderApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddOrderMutation } = orderApi;
+export const { useAddOrderMutation, useAddOrderWithPaymentIdMutation } =
+  orderApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({
 //       url: "/auth/register",
