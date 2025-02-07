@@ -38,6 +38,8 @@ export default function AllOrderFromUser() {
             <TableHead>Author</TableHead>
             <TableHead>Total Price</TableHead>
             <TableHead>Quantity</TableHead>
+            <TableHead>Address</TableHead>
+
             <TableHead>Payment Method</TableHead>
             <TableHead>Order Status</TableHead>
           </TableRow>

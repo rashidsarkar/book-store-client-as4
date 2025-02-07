@@ -38,11 +38,6 @@ export default function Footer() {
                 About Us
               </Link>
             </li>
-            <li>
-              <Link to="/contact" className="hover:text-[#FFEB00]">
-                Contact
-              </Link>
-            </li>
           </ul>
         </div>
 
