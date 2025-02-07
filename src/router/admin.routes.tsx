@@ -2,13 +2,21 @@ import ProfilePage from "../components/Dashborad/ProfilePage";
 import UsersPage from "../components/Dashborad/UsersPage";
 import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
 import AllBook from "../pages/dashboard/Admin/AllBook";
+import AllOrderFromAdmin from "../pages/dashboard/Admin/AllOrderFromAdmin";
 import CreateBook from "../pages/dashboard/Admin/CreateBook";
+import AllOrders from "../pages/dashboard/user/AllOrderFromUser";
+import ProfileSettings from "../pages/dashboard/user/ProfileSettings";
 
 export const adminPaths = [
   {
     name: "Profile",
     path: "profile",
     element: <ProfilePage />,
+  },
+  {
+    name: "Profile Settings",
+    path: "profile-settings",
+    element: <ProfileSettings />,
   },
   {
     name: "Users",
@@ -29,14 +37,9 @@ export const adminPaths = [
         element: <CreateBook />,
       },
       {
-        name: "Create A. Book1",
-        path: "create-book1",
-        element: <CreateBook />,
-      },
-      {
-        name: "Create A. Book2",
-        path: "create-book2",
-        element: <CreateBook />,
+        name: "Orders",
+        path: "orders",
+        element: <AllOrderFromAdmin />,
       },
     ],
   },

@@ -12,6 +12,7 @@ import UpdateBook from "../pages/dashboard/Admin/UpdateBook";
 import About from "../pages/About/About";
 import { userPath } from "./user.routes";
 import CheckoutPage from "../pages/dashboard/user/CheckoutPage/CheckoutPage";
+import UserDashboard from "../pages/dashboard/user/UserDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +60,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <AdminDashboard />,
+    element: <UserDashboard />,
     children: routeGenerator(userPath),
   },
   {

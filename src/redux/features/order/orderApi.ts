@@ -2,15 +2,24 @@ import { baseApi } from "../../api/baseApi";
 
 const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllUser: builder.query({
-    //   query: () => {
-    //     return {
-    //       url: `auth/getAllUsers`,
-    //       method: "GET",
-    //     };
-    //   },
-    //   providesTags: ["order", "book"],
-    // }),
+    getAllOrder: builder.query({
+      query: (userID) => {
+        return {
+          url: `order/${userID}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order", "book", "users"],
+    }),
+    getAllOrderForMe: builder.query({
+      query: (userID) => {
+        return {
+          url: `order/get-my-order/${userID}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order", "book", "users"],
+    }),
 
     addOrder: builder.mutation({
       query: (orderData) => {
@@ -20,7 +29,7 @@ const orderApi = baseApi.injectEndpoints({
           body: orderData,
         };
       },
-      invalidatesTags: ["book", "order"],
+      invalidatesTags: ["book", "order", "users"],
     }),
     addOrderWithPaymentId: builder.mutation({
       query: (orderData) => {
@@ -30,22 +39,21 @@ const orderApi = baseApi.injectEndpoints({
           body: orderData,
         };
       },
-      invalidatesTags: ["book", "order"],
+      invalidatesTags: ["book", "order", "users"],
     }),
 
-    // updateBook: builder.mutation({
-    //   query: (bookInfo) => {
-    //     const { id } = bookInfo;
-    //     // console.log(bookInfo);
+    updateOrder: builder.mutation({
+      query: (orderInfo) => {
+        const { id, ...orderWithoutId } = orderInfo;
 
-    //     return {
-    //       url: `book/${id}`,
-    //       method: "PATCH",
-    //       body: bookInfo,
-    //     };
-    //   },
-    //   invalidatesTags: ["book"],
-    // }),
+        return {
+          url: `order/update/${id}`,
+          method: "PATCH",
+          body: orderWithoutId,
+        };
+      },
+      invalidatesTags: ["book", "order", "users"],
+    }),
     // getBookById: builder.query({
     //   query: (id) => {
     //     return {
@@ -67,8 +75,13 @@ const orderApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddOrderMutation, useAddOrderWithPaymentIdMutation } =
-  orderApi;
+export const {
+  useAddOrderMutation,
+  useAddOrderWithPaymentIdMutation,
+  useUpdateOrderMutation,
+  useGetAllOrderQuery,
+  useGetAllOrderForMeQuery,
+} = orderApi;
 // register: builder.mutation({
 //     query: (userInfo) => ({
 //       url: "/auth/register",

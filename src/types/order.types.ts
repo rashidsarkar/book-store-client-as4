@@ -11,12 +11,33 @@ export type TUserFromDB = {
   createdAt?: string;
   updatedAt?: string;
   __v?: number;
+  address?: string;
 };
-
+type PaymentMethod = "stripe" | "cash";
+export enum OrderStatus {
+  PENDING = "pending",
+  CONFIRM = "confirm",
+  CANCEL = "cancel",
+  DELIVERED = "delivered",
+}
 export interface TOrderData {
   product: TBook | string;
   quantity: number;
   userId: TUserFromDB | string;
-  paymentMethod: "cash" | "stripe";
+  paymentMethod: PaymentMethod;
   totalPrice: number;
+}
+
+export interface TOrder {
+  _id: string;
+  paymentMethod: PaymentMethod;
+  product: TBook;
+  quantity: number;
+  userId: TUserFromDB;
+  totalPrice: number;
+  transactionId?: string;
+  status: OrderStatus;
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 }
