@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Table, Button, Tag, Space, ConfigProvider } from "antd";
 import { BlockOutlined, UnlockOutlined } from "@ant-design/icons";

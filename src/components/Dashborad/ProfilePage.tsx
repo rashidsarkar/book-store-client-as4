@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
