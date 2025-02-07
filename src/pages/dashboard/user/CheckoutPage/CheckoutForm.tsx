@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useAppSelector } from "../../../../redux/hooks";
@@ -36,8 +36,10 @@ const CheckoutForm = () => {
   const navigate = useNavigate();
   const [createOrder, { isLoading: orderLoading, error }] =
     useAddOrderMutation();
+  console.log(orderLoading, error);
   const [addOrderWithID, { isLoading: paymentLoading }] =
     useAddOrderWithPaymentIdMutation();
+  console.log(paymentLoading);
   const user = useAppSelector(selectCurrentUser);
   const { state } = useLocation();
 
@@ -120,10 +122,7 @@ const CheckoutForm = () => {
           setTransactionId(paymentIntent.id);
           toast.success("Payment successful!", { id: toastId });
           console.log(paymentIntent.id);
-          const fullOrderDetails = {
-            ...orderData,
-            transactionId: paymentIntent.id,
-          };
+
           // Update order with transaction ID
           const resultWithPaymentID = await addOrderWithID({
             ...orderData,

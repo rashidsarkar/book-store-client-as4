@@ -1,10 +1,8 @@
 import ProfilePage from "../components/Dashborad/ProfilePage";
 import UsersPage from "../components/Dashborad/UsersPage";
-import AdminDashboard from "../pages/dashboard/Admin/AdminDashboard";
 import AllBook from "../pages/dashboard/Admin/AllBook";
 import AllOrderFromAdmin from "../pages/dashboard/Admin/AllOrderFromAdmin";
 import CreateBook from "../pages/dashboard/Admin/CreateBook";
-import AllOrders from "../pages/dashboard/user/AllOrderFromUser";
 import ProfileSettings from "../pages/dashboard/user/ProfileSettings";
 
 export const adminPaths = [

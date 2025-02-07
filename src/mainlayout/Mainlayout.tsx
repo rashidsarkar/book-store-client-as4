@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
-import { Toaster } from "sonner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Footer from "../components/Footer/Footer";

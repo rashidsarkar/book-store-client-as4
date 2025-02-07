@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -36,6 +37,7 @@ export default function UpdateBook() {
     try {
       const res = await updateBook({ id, updatedBook: data }).unwrap();
       navigate("/admin/all-book"); // Redirect to books list
+      console.log(res);
     } catch (error) {
       console.error("Failed to update book", error);
     }
@@ -59,7 +61,7 @@ export default function UpdateBook() {
         </div>
         <div>
           <Label>Category</Label>
-          <Select onValueChange={(value) => setValue("category", value)}>
+          <Select onValueChange={(value: any) => setValue("category", value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select category" />
             </SelectTrigger>

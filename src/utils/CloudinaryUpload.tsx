@@ -59,6 +59,7 @@ export default function CloudinaryUpload({
       }
     } catch (error) {
       toast.error("Image upload failed!");
+      console.log(error);
     } finally {
       setLoading(false);
     }

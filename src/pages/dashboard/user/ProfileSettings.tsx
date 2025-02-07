@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useAppSelector } from "../../../redux/hooks";
 import {
-  useChangePasswordMutation,
   useGetSingleUserQuery,
   useUpdateUserMutation,
 } from "../../../redux/features/auth/authApi";
@@ -22,8 +21,6 @@ export default function ProfileSettings() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    watch,
     setValue,
   } = useForm<FormData>();
 

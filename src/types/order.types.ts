@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { TBook } from "./book.type";
 
 export type TUserFromDB = {

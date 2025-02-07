@@ -1,8 +1,6 @@
 import Banner from "../../../components/Home/Banner/Banner";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Featured from "../../../components/Home/Featured/Featured";
-import Footer from "../../../components/Footer/Footer";
-import BlogsSection from "../../../components/Home/BlogsSection/BlogsSection";
 import ProductReview from "../../../components/Home/ProductReview/ProductReview";
 
 export default function Home() {

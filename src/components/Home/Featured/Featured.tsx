@@ -1,5 +1,3 @@
-import React from "react";
-import Card from "./FeatureCard";
 import { Link } from "react-router-dom";
 import { useGetBooksQuery } from "../../../redux/features/admin/adminApi";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";

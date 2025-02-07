@@ -24,7 +24,6 @@ export default function ProfilePage() {
     reset,
   } = useForm<FormData>();
 
-  const token = useAppSelector((state) => state.auth.token);
   const profile = useAppSelector((state) => state.auth.user);
   const { data: currentUser } = useGetSingleUserQuery({
     email: profile?.email,

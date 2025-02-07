@@ -1,5 +1,4 @@
 import { baseApi } from "../../api/baseApi";
-import { RootState } from "../../store";
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

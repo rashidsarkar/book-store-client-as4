@@ -13,7 +13,6 @@ export default function SingleProduct() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const book: TBook = state?.book;
-  const navigation = useNavigate();
 
   if (!book) {
     return (
