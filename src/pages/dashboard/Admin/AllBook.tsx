@@ -44,6 +44,16 @@ enum BookCategory {
   NonFiction = "Non-Fiction",
   Biography = "Biography",
 }
+type ValidationError = {
+  success: false;
+  message: string;
+  statusCode: number;
+  error: {
+    path: string;
+    message: string;
+  }[];
+  stack: string;
+};
 
 export default function AllBook() {
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -72,7 +82,7 @@ export default function AllBook() {
       toast.success(res.message || "Book updated successfully!!!!", {
         id: toastID,
       });
-    } catch (error) {
+    } catch (error: ValidationError) {
       toast.error(error.message || "Failed to update book");
       console.error(error);
     }

@@ -13,6 +13,6 @@ export interface TBook {
   category: BookCategory; // Use the BookCategory type here
   quantity: number;
   description?: string;
-  _id?: string;
+  _id: string;
   publicationYear: number;
 }

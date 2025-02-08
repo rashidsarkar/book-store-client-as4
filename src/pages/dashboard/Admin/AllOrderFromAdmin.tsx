@@ -79,7 +79,7 @@ export default function AllOrderFromAdmin() {
         id: toastID,
       });
     } catch (error) {
-      toast.error(error.message || "Failed to update order status", {
+      toast.error(error?.message || "Failed to update order status", {
         id: toastID,
       });
       console.error(error);
