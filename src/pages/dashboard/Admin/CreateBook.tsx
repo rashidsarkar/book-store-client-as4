@@ -124,17 +124,24 @@ export default function CreateBook() {
 
               {/* Publication Year */}
               <div>
-                <Label>Publication Year</Label> <br />
-                <DatePicker
-                  selected={publicationYear}
-                  onChange={(date: Date) => {
-                    setPublicationYear(date);
-                    setValue("publicationYear", date.getFullYear());
+                <Label>Publication Year</Label>
+                <Input
+                  type="number"
+                  {...register("publicationYear", {
+                    required: "Publication year is required",
+                    min: {
+                      value: 1900,
+                      message: "Please enter a valid year",
+                    },
+                    max: {
+                      value: new Date().getFullYear(),
+                      message: "Year can't be in the future",
+                    },
+                  })}
+                  placeholder="Enter publication year"
+                  onChange={(e) => {
+                    setPublicationYear(new Date(e.target.value));
                   }}
-                  showYearPicker
-                  dateFormat="yyyy"
-                  placeholderText="Select year"
-                  className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 {errors.publicationYear && (
                   <p className="text-sm text-red-500">
@@ -166,7 +173,8 @@ export default function CreateBook() {
                   </p>
                 )}
               </div>
-              {/* Quantity Upload */}
+
+              {/* Quantity */}
               <div>
                 <Label>Quantity</Label>
                 <Input
@@ -180,8 +188,10 @@ export default function CreateBook() {
                   })}
                   placeholder="Enter Quantity"
                 />
-                {errors.price && (
-                  <p className="text-sm text-red-500">{errors.price.message}</p>
+                {errors.quantity && (
+                  <p className="text-sm text-red-500">
+                    {errors.quantity.message}
+                  </p>
                 )}
               </div>
 

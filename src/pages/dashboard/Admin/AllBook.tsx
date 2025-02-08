@@ -44,16 +44,6 @@ enum BookCategory {
   NonFiction = "Non-Fiction",
   Biography = "Biography",
 }
-type ValidationError = {
-  success: false;
-  message: string;
-  statusCode: number;
-  error: {
-    path: string;
-    message: string;
-  }[];
-  stack: string;
-};
 
 export default function AllBook() {
   const [editingId, setEditingId] = useState<string | null>(null);
