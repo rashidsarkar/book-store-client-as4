@@ -16,6 +16,11 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { toast } from "sonner";
 
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
 export default function Login() {
   const navigate = useNavigate();
   const [login] = useLoginMutation();
@@ -25,30 +30,27 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginFormData>();
 
-  const onSubmit = async (data) => {
-    console.log("Login Data:", data);
+  const onSubmit = async (data: LoginFormData) => {
     const toastID = toast.loading("Logging in...");
 
-    // await login();
     try {
       const userInfo = {
         email: data.email,
         password: data.password,
       };
+
       const res = await login(userInfo).unwrap();
-      console.log(res);
       toast.success(res.message, { id: toastID });
+
       const user = verifyToken(res?.data?.token);
       dispatch(setUser({ user: user, token: res.data.token }));
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.data?.message, { id: toastID });
-    }
 
-    // Redirect to home page after login
+      navigate("/");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Login Failed", { id: toastID });
+    }
   };
 
   return (
@@ -56,7 +58,6 @@ export default function Login() {
       <Card className="max-w-sm mx-auto ">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Login</CardTitle>
-
           <CardDescription>
             Enter your email and password to login to your account
           </CardDescription>
@@ -71,8 +72,10 @@ export default function Login() {
                 placeholder="m@example.com"
                 {...register("email", { required: "Email is required" })}
               />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
+              {errors.email?.message && (
+                <p className="text-sm text-red-500">
+                  {String(errors.email.message)}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -82,9 +85,9 @@ export default function Login() {
                 type="password"
                 {...register("password", { required: "Password is required" })}
               />
-              {errors.password && (
+              {errors.password?.message && (
                 <p className="text-sm text-red-500">
-                  {errors.password.message}
+                  {String(errors.password.message)}
                 </p>
               )}
             </div>

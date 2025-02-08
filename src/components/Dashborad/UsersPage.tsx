@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Table, Button, Tag, ConfigProvider } from "antd";
 import { BlockOutlined, UnlockOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
@@ -19,14 +18,24 @@ export default function UsersPage() {
   const { data: allUser, isFetching } = useGetAllUserQuery(undefined);
   const [blockuser] = useBlockUserMutation();
 
-  const users: User = allUser?.data?.map((item) => {
-    return {
-      key: item._id,
-      name: item.name,
-      email: item.email,
-      isBlocked: item.isBlocked,
-    };
-  });
+  // Ensure `users` is typed as `User[]` instead of just `User`
+  const users: User[] =
+    allUser?.data?.map(
+      (item: {
+        _id: string;
+        name: string;
+        email: string;
+        isBlocked: boolean;
+      }) => {
+        return {
+          key: item._id,
+          name: item.name,
+          email: item.email,
+          isBlocked: item.isBlocked,
+        };
+      }
+    ) || []; // In case `allUser?.data` is undefined, default to an empty array
+
   const toggleBlockStatus = async (key: string, isBlocked: boolean) => {
     const userInfo = {
       key,

@@ -64,7 +64,7 @@ const CheckoutForm = () => {
     navigate("/");
     return null; // Prevent rendering further
   }
-  const totalPrice = (book.price * form.watch("quantity")).toFixed(2);
+  const totalPrice = (Number(book.price) * form.watch("quantity")).toFixed(2);
 
   const handleSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Adding order...");

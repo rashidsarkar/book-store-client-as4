@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button"; // Ensure the path is correct
@@ -93,7 +93,7 @@ const Navbar = () => {
               <Avatar
                 size={40}
                 style={{ cursor: "pointer" }}
-                src={data?.avatarUrl || "https://i.pravatar.cc/150?img=3"} // Fallback avatar
+                src={ "https://i.pravatar.cc/150?img=3"} // Fallback avatar
               />
             </Dropdown>
           </Tooltip>

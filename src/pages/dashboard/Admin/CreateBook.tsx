@@ -14,15 +14,13 @@ import {
 import { Button } from "../../../components/ui/button";
 import { useState } from "react";
 import { useAddBookMutation } from "../../../redux/features/admin/adminApi";
-import { TBook } from "../../../types/book.type";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import the styles
+import { TBook, BookCategory } from "../../../types/book.type";
 
 export default function CreateBook() {
   const [addbook] = useAddBookMutation();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [clearImage, setClearImage] = useState(false);
-  const [publicationYear, setPublicationYear] = useState<Date | null>(null);
+  const [publicationYear, setPublicationYear] = useState<number | null>(null);
 
   const {
     register,
@@ -42,7 +40,7 @@ export default function CreateBook() {
       ...data,
       image: imageUrl,
       price: Number(data.price),
-      publicationYear: publicationYear ? publicationYear.getFullYear() : null,
+      publicationYear: publicationYear ?? null, // Use the number or null
       quantity: Number(data.quantity),
     };
 
@@ -54,7 +52,7 @@ export default function CreateBook() {
       });
     } catch (error) {
       console.log(error);
-      toast.error(error?.data?.message || "Failed to add book!", {
+      toast.error("Failed to add book!", {
         id: toastID,
       });
     }
@@ -140,7 +138,7 @@ export default function CreateBook() {
                   })}
                   placeholder="Enter publication year"
                   onChange={(e) => {
-                    setPublicationYear(new Date(e.target.value));
+                    setPublicationYear(Number(e.target.value));
                   }}
                 />
                 {errors.publicationYear && (
@@ -153,7 +151,14 @@ export default function CreateBook() {
               {/* Category */}
               <div>
                 <Label>Category</Label>
-                <Select onValueChange={(value) => setValue("category", value)}>
+                <Select
+                  {...register("category", {
+                    required: "Category is required", // Adding required validation
+                  })}
+                  onValueChange={(value) =>
+                    setValue("category", value as BookCategory)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>

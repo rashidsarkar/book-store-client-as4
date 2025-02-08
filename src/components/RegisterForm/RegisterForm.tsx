@@ -17,50 +17,45 @@ import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { toast } from "sonner";
 
+type FormData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export default function Register() {
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const [registrationUser] = useRegisterMutation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const onSubmit = async (data) => {
-    // Show loading toast
-
+  const onSubmit = async (data: FormData) => {
     const toastID = toast.loading("Registering...");
 
-    console.log("Register Data:", data);
     try {
       const userInfo = {
         name: data.name,
         email: data.email,
         password: data.password,
       };
-      console.log(userInfo);
+
       const res = await registrationUser(userInfo).unwrap();
       const user = verifyToken(res.data.token);
       dispatch(setUser({ user: user, token: res.data.token }));
-      // const user = verifyToken(res.data.accessToken) as TUser;
-      console.log("res", res);
+
       toast.success(res.data.message, { id: toastID });
 
-      // toast.success("Registration Successful!", {
-      //   id: toastId, // Update the same toast
-      // });
-
-      // Redirect to login page after successful registration
       navigate("/");
     } catch (error) {
-      // toast.error("Registration Failed", {
-      //   id: toastId, // Update the same toast
-      // });
-      toast.error(error?.data?.message, { id: toastID });
-
       console.log(error);
+      toast.error("Registration Failed", {
+        id: toastID,
+      });
     }
   };
 
@@ -83,8 +78,10 @@ export default function Register() {
                 placeholder="Your Name"
                 {...register("name", { required: "Name is required" })}
               />
-              {errors.name && (
-                <p className="text-sm text-red-500">{errors.name.message}</p>
+              {errors.name?.message && (
+                <p className="text-sm text-red-500">
+                  {String(errors.name.message)}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -95,8 +92,10 @@ export default function Register() {
                 placeholder="m@example.com"
                 {...register("email", { required: "Email is required" })}
               />
-              {errors.email && (
-                <p className="text-sm text-red-500">{errors.email.message}</p>
+              {errors.email?.message && (
+                <p className="text-sm text-red-500">
+                  {String(errors.email.message)}
+                </p>
               )}
             </div>
             <div className="space-y-2">
@@ -106,9 +105,9 @@ export default function Register() {
                 type="password"
                 {...register("password", { required: "Password is required" })}
               />
-              {errors.password && (
+              {errors.password?.message && (
                 <p className="text-sm text-red-500">
-                  {errors.password.message}
+                  {String(errors.password.message)}
                 </p>
               )}
             </div>

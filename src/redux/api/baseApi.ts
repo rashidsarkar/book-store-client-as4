@@ -30,7 +30,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOption): Promise<any> => {
   let result = await baseQuery(args, api, extraOption);
   if (result.error?.status === 404) {
-    toast.error(result?.error?.data?.message);
+    toast.error("Not Found Error");
   }
   if (result.error?.status === 401) {
     console.log("sending refresh token");

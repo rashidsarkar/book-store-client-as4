@@ -72,8 +72,8 @@ export default function AllBook() {
       toast.success(res.message || "Book updated successfully!!!!", {
         id: toastID,
       });
-    } catch (error: ValidationError) {
-      toast.error(error.message || "Failed to update book");
+    } catch (error) {
+      toast.error("Failed to update book");
       console.error(error);
     }
 
@@ -88,7 +88,7 @@ export default function AllBook() {
         id: toastID,
       });
     } catch (error) {
-      toast.error(error.message || "Failed to delete book", { id: toastID });
+      toast.error("Failed to delete book", { id: toastID });
       console.error(error);
     }
   };

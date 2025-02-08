@@ -1,10 +1,18 @@
+interface SectionTitleProps {
+  title: string;
+  subtitle?: string;
+  align?: "left" | "center" | "right";
+  titleColor?: string;
+  subtitleColor?: string;
+}
+
 export default function SectionTitle({
   title,
   subtitle,
   align = "center", // Default alignment is center
   titleColor = "text-gray-900", // Default title color
   subtitleColor = "text-gray-600", // Default subtitle color
-}) {
+}: SectionTitleProps) {
   return (
     <div className={`text-${align} mb-12 lg:mb-16`}>
       {/* Subtitle (optional) */}
