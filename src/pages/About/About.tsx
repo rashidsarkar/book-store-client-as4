@@ -83,27 +83,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Promotional Section */}
       <section className="py-16 bg-[#577BC1] text-white">
-        <div className="container px-4 mx-auto">
-          <div className="grid gap-8 text-center md:grid-cols-4">
-            <div>
-              <div className="text-4xl font-bold">50K+</div>
-              <div className="text-sm">Books in Collection</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">120+</div>
-              <div className="text-sm">Monthly Events</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">95%</div>
-              <div className="text-sm">Customer Satisfaction</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold">15+</div>
-              <div className="text-sm">Awards Won</div>
-            </div>
-          </div>
+        <div className="container px-4 mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">📚 Limited-Time Offer!</h2>
+          <p className="text-lg mb-6">
+            Enjoy <span className="font-bold text-yellow-300">30% OFF</span> on
+            all bestselling books! Don’t miss out on this exclusive deal – grab
+            your favorite books now!
+          </p>
+          <button
+            className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-lg text-lg transition"
+            onClick={() => navigate("/books")}
+          >
+            Shop Now 📖
+          </button>
         </div>
       </section>
 

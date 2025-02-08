@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";

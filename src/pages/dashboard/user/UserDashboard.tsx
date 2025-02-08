@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Layout } from "antd";
 import Sidebar from "../../../layout/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -35,7 +34,6 @@ export default function UserDashboard() {
               background: "#FFEB00",
               color: "#000957",
             }}
-            hover={{ background: "#577BC1" }}
           >
             Home
           </Button>

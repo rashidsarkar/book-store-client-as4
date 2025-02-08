@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Banner() {
   return (
@@ -19,19 +20,19 @@ export default function Banner() {
             read and let your imagination soar.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a
-              href="#"
+            <Link
+              to="/books"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#000957] transition duration-300 rounded-lg bg-primary-600 hover:bg-primary-700 hover:ring-4 hover:ring-primary-300 dark:hover:ring-primary-900"
             >
               Browse Books
               <FaArrowRight className="w-6 h-6 ml-2 -mr-1" />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/about"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold transition duration-300 border-2 rounded-lg text-primary-600 border-primary-600 hover:bg-primary-50 hover:ring-4 hover:ring-primary-100 dark:hover:text-white dark:hover:border-gray-300 dark:hover:bg-gray-700 dark:hover:ring-gray-800"
             >
-              Explore Collections
-            </a>
+              Explore Shope
+            </Link>
           </div>
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex lg:items-center lg:justify-end">
