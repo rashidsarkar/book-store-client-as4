@@ -89,9 +89,7 @@ npm install
 Create a `.env` file in the root directory and configure:
 
 ```
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-STRIPE_SECRET_KEY=your_stripe_key
+VITE_STRIPE_PUBLIC_KEY=your_STRIPE_PUBLIC_KEY
 ```
 
 ### **4️⃣ Run the Project**
