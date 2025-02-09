@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -51,9 +52,9 @@ export default function Register() {
       toast.success(res.data.message, { id: toastID });
 
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      toast.error("Registration Failed", {
+      toast.error(error?.data?.message || "Registration Failed", {
         id: toastID,
       });
     }

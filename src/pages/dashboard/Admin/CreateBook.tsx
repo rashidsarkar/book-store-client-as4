@@ -50,9 +50,9 @@ export default function CreateBook() {
       toast.success(res?.message || "Book added successfully!", {
         id: toastID,
       });
-    } catch (error) {
+    } catch (error:any) {
       console.log(error);
-      toast.error("Failed to add book!", {
+      toast.error(error?.data?.message ||"Failed to add book!", {
         id: toastID,
       });
     }

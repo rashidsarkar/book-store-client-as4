@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import {
@@ -72,8 +73,8 @@ export default function AllBook() {
       toast.success(res.message || "Book updated successfully!!!!", {
         id: toastID,
       });
-    } catch (error) {
-      toast.error("Failed to update book");
+    } catch (error: any) {
+      toast.error( error?.data?.message ||"Failed to update book");
       console.error(error);
     }
 
@@ -87,8 +88,8 @@ export default function AllBook() {
       toast.success(res.message || "Book deleted successfully!", {
         id: toastID,
       });
-    } catch (error) {
-      toast.error("Failed to delete book", { id: toastID });
+    } catch (error:any) {
+      toast.error( error?.data?.message ||"Failed to delete book", { id: toastID });
       console.error(error);
     }
   };

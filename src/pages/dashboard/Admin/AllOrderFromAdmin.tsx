@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FaEdit, FaSave, FaTimes } from "react-icons/fa"; // Added FaTimes for cancel
 import {
@@ -78,8 +79,8 @@ export default function AllOrderFromAdmin() {
       toast.success(res.message || "Order status updated successfully!", {
         id: toastID,
       });
-    } catch (error) {
-      toast.error("Failed to update order status", {
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to update order status", {
         id: toastID,
       });
       console.error(error);
