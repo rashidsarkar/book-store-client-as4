@@ -1,7 +1,3 @@
-Here’s a **README.md** file for your **Book Store** project, structured similarly to your Luxe project but tailored for the book store platform. 🚀
-
----
-
 ### 📚 **Book Store - Your Ultimate Online Book Hub**
 
 ## Overview
