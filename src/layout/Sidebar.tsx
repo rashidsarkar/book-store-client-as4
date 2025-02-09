@@ -1,6 +1,6 @@
 import { Layout, Menu } from "antd";
 import { useAppSelector } from "../redux/hooks";
-import { logOut, selectCurrentUser } from "../redux/features/auth/authSlice";
+import { logOut, TUser } from "../redux/features/auth/authSlice";
 import { adminPaths } from "../router/admin.routes";
 import { sidebarItemsGenerator } from "../utils/sidebarItemsGenerator";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useState } from "react";
 import { userPath } from "../router/user.routes";
+import { verifyToken } from "../utils/verifyToken";
 
 const { Sider } = Layout;
 export const userRole = {
@@ -18,10 +19,16 @@ export const userRole = {
 
 export default function Sidebar() {
   const dispatch = useDispatch();
-  const user = useAppSelector(selectCurrentUser);
+  // const user = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   // console.log(user);
+  const token = useAppSelector((state) => state.auth.token);
+
+  let user;
+  if (token) {
+    user = verifyToken(token) as TUser;
+  }
   let sidebarItems;
   const role = user?.role;
 

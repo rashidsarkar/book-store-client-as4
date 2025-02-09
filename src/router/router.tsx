@@ -14,6 +14,7 @@ import { userPath } from "./user.routes";
 import CheckoutPage from "../pages/dashboard/user/CheckoutPage/CheckoutPage";
 import UserDashboard from "../pages/dashboard/user/UserDashboard";
 import ProtectedRoute from "../layout/ProtectedRoute";
+import ProtectedRouteOnlyLogin from "../layout/ProtectedRouteOnlyLogin";
 
 export const router = createBrowserRouter([
   {
@@ -65,11 +66,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/user",
-    element: <UserDashboard />,
+    element: (
+      <ProtectedRoute role="user">
+        <UserDashboard />
+      </ProtectedRoute>
+    ),
     children: routeGenerator(userPath),
   },
   {
     path: "/checkOut",
-    element: <CheckoutPage />,
+    element: (
+      <ProtectedRouteOnlyLogin>
+        <CheckoutPage />,
+      </ProtectedRouteOnlyLogin>
+    ),
   },
 ]);

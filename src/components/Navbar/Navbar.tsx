@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineMenu,
+  AiOutlineSetting,
+} from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button"; // Ensure the path is correct
 import { selectCurrentUser, logOut } from "../../redux/features/auth/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { Avatar, Tooltip, Menu, Dropdown } from "antd";
+import { Menu, Dropdown } from "antd";
 import { userRole } from "../../layout/Sidebar";
 
 const Navbar = () => {
@@ -28,7 +32,6 @@ const Navbar = () => {
   const navItems = [
     { id: 1, text: "Home", path: "/" },
     { id: 2, text: "Books", path: "/books" },
-
     { id: 4, text: "About", path: "/about" },
   ];
 
@@ -42,27 +45,19 @@ const Navbar = () => {
 
   const menu = (
     <Menu>
-      {data?.email ? (
-        <>
-          <Menu.Item key="1" onClick={handleDashboard}>
-            Dashboard
-          </Menu.Item>
-          <Menu.Item key="2" onClick={handleAuth}>
-            Logout
-          </Menu.Item>
-        </>
-      ) : (
-        <Menu.Item key="3" onClick={handleAuth}>
-          Login
-        </Menu.Item>
-      )}
+      <Menu.Item key="1" onClick={handleDashboard}>
+        Dashboard
+      </Menu.Item>
+      <Menu.Item key="2" onClick={handleAuth}>
+        Logout
+      </Menu.Item>
     </Menu>
   );
 
   return (
     <div className="flex items-center justify-between h-24 px-4 mx-auto text-white bg-[#000957]">
       <img
-        className="w-[150px]  h-auto"
+        className="w-[150px] h-auto"
         src="https://i.ibb.co.com/hJMQGCzz/logo.png"
         alt="logo"
       />
@@ -85,25 +80,21 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Avatar & Tooltip for User Authentication */}
+      {/* Authentication / Dashboard Button */}
       <div className="flex items-center space-x-4">
-        {data?.email ? (
-          <Tooltip title="Click for menu">
-            <Dropdown overlay={menu} trigger={["click"]}>
-              <Avatar
-                size={40}
-                style={{ cursor: "pointer" }}
-                src={ "https://i.pravatar.cc/150?img=3"} // Fallback avatar
-              />
-            </Dropdown>
-          </Tooltip>
-        ) : (
+        {!data?.email ? (
           <Button
             onClick={handleAuth}
             className="bg-[#577BC1] text-white hover:bg-[#344CB7]"
           >
             Login
           </Button>
+        ) : (
+          <Dropdown overlay={menu} trigger={["click"]}>
+            <Button className="flex items-center gap-2 px-4 py-2 text-white bg-[#577BC1] hover:bg-[#344CB7]">
+              <AiOutlineSetting size={20} /> Settings
+            </Button>
+          </Dropdown>
         )}
       </div>
 
@@ -118,11 +109,11 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       <ul
-        className={
+        className={`${
           nav
             ? "fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-[#344CB7] bg-[#000957] ease-in-out duration-500"
             : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
-        }
+        }`}
       >
         <h1 className="w-full text-3xl font-bold text-[#FFEB00] m-4">
           BookStore
