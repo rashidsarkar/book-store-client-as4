@@ -45,34 +45,35 @@ export default function AllOrderFromUser() {
         <TableBody>
           {allOrders?.length > 0 ? (
             allOrders.map((order) => (
-              <TableRow key={order._id}>
+              <TableRow key={order?._id}>
                 <TableCell>
                   <img
-                    src={order.product.image}
-                    alt={order.product.name}
+                    src={order?.product?.image}
+                    alt={order?.product?.name}
                     className="object-cover w-12 h-12 rounded"
                   />
                 </TableCell>
-                <TableCell>{order.product.name}</TableCell>
-                <TableCell>{order.product.author}</TableCell>
-                <TableCell>${order.totalPrice}</TableCell>
-                <TableCell>{order.quantity}</TableCell>
+                <TableCell>{order?.product?.name}</TableCell>
+                <TableCell>{order?.product?.author}</TableCell>
+                <TableCell>${order?.totalPrice}</TableCell>
+                <TableCell>{order?.quantity}</TableCell>
                 <TableCell>
-                  {order.userId.address?.trim()
-                    ? order.userId.address
+                  {order?.userId?.address?.trim()
+                    ? order?.userId?.address
                     : "Address not provided"}
                 </TableCell>
                 <TableCell className="capitalize">
-                  {order.paymentMethod}
-                  {order.paymentMethod.toLowerCase() === "stripe" &&
+                  {order?.paymentMethod}
+                  {order?.paymentMethod.toLowerCase() === "stripe" &&
                     order.transactionId && (
                       <p className="mt-1 text-xs text-gray-500">
-                        Transaction ID: {order.transactionId}
+                        Transaction ID: {order?.transactionId}
                       </p>
                     )}
                 </TableCell>
                 <TableCell>
-                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                  {order?.status.charAt(0).toUpperCase() +
+                    order?.status.slice(1)}
                 </TableCell>
               </TableRow>
             ))
