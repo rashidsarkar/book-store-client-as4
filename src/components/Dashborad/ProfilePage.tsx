@@ -10,6 +10,7 @@ import {
   useGetSingleUserQuery,
 } from "../../redux/features/auth/authApi";
 import { toast } from "sonner";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 interface FormData {
   oldPassword: string;
@@ -25,9 +26,10 @@ export default function ProfilePage() {
   } = useForm<FormData>();
 
   const profile = useAppSelector((state) => state.auth.user);
-  const { data: currentUser } = useGetSingleUserQuery({
+  const { data: currentUser, isLoading: userLoading } = useGetSingleUserQuery({
     email: profile?.email,
   });
+  <LoadingSpinner loading={userLoading} />;
 
   const [changePassword, { isLoading }] = useChangePasswordMutation();
 
