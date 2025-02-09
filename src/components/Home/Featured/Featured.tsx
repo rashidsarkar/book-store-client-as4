@@ -11,7 +11,7 @@ export default function Featured() {
     sortOrder: "",
     sortBy: "",
   };
-  const { data: books, isFetching } = useGetBooksQuery(filter);
+  const { data: books, isLoading: isFetching } = useGetBooksQuery(filter);
   console.log(books);
   const lastSixBooks = books?.data?.slice(-6) || [];
   return (

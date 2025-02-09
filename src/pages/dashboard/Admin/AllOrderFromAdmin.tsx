@@ -39,7 +39,7 @@ export default function AllOrderFromAdmin() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "">("");
 
-  const { data: allOrderData, isFetching } = useGetAllOrderQuery(
+  const { data: allOrderData, isLoading: isFetching } = useGetAllOrderQuery(
     currentUser?.email
   );
   const [updateOrder] = useUpdateOrderMutation();

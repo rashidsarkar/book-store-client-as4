@@ -51,7 +51,7 @@ export default function AllBook() {
   const [editedData, setEditedData] = useState<Partial<TBook>>({});
 
   const filter = { search: "", filter: "", sortOrder: "", sortBy: "" };
-  const { data: books, isFetching } = useGetBooksQuery(filter);
+  const { data: books, isLoading: isFetching } = useGetBooksQuery(filter);
   const [updateBook] = useUpdateBookMutation();
   const [deletdBook] = useDetedBookByIdMutation();
 
@@ -74,7 +74,7 @@ export default function AllBook() {
         id: toastID,
       });
     } catch (error: any) {
-      toast.error( error?.data?.message ||"Failed to update book");
+      toast.error(error?.data?.message || "Failed to update book");
       console.error(error);
     }
 
@@ -88,8 +88,10 @@ export default function AllBook() {
       toast.success(res.message || "Book deleted successfully!", {
         id: toastID,
       });
-    } catch (error:any) {
-      toast.error( error?.data?.message ||"Failed to delete book", { id: toastID });
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to delete book", {
+        id: toastID,
+      });
       console.error(error);
     }
   };

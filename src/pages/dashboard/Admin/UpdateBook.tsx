@@ -23,7 +23,7 @@ export default function UpdateBook() {
   const navigate = useNavigate();
   const { register, handleSubmit, setValue, reset } = useForm<TBook>();
 
-  const { data: bookData, isFetching } = useGetBookByIdQuery(id);
+  const { data: bookData, isLoading: isFetching } = useGetBookByIdQuery(id);
   const [updateBook, { isLoading }] = useUpdateBookMutation();
 
   // Set form default values when data is available

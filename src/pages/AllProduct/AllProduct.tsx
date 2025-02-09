@@ -25,7 +25,7 @@ export default function AllProduct() {
     search: filters.search?.trim(),
   };
 
-  const { data: books, isFetching } = useGetBooksQuery(filterData);
+  const { data: books, isLoading: isFetching } = useGetBooksQuery(filterData);
 
   return (
     <div className="container p-6 mx-auto">

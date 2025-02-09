@@ -14,9 +14,8 @@ import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 export default function AllOrderFromUser() {
   const currentUser = useAppSelector(selectCurrentUser);
-  const { data: allOrderData, isFetching } = useGetAllOrderForMeQuery(
-    currentUser?.email
-  );
+  const { data: allOrderData, isLoading: isFetching } =
+    useGetAllOrderForMeQuery(currentUser?.email);
 
   const allOrders = allOrderData?.data as TOrder[];
   if (isFetching)

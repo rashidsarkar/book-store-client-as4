@@ -15,7 +15,7 @@ interface User {
 }
 
 export default function UsersPage() {
-  const { data: allUser, isFetching } = useGetAllUserQuery(undefined);
+  const { data: allUser, isLoading: isFetching } = useGetAllUserQuery(undefined);
   const [blockuser] = useBlockUserMutation();
 
   // Ensure `users` is typed as `User[]` instead of just `User`
