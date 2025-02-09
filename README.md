@@ -8,7 +8,7 @@ Here’s a **README.md** file for your **Book Store** project, structured simila
 
 Welcome to **Book Store**, your go-to platform for discovering, purchasing, and managing books with ease. This platform offers a seamless shopping experience with secure payments, real-time stock tracking, and an intuitive interface for book lovers.
 
-👉 **Live Site:** [Book Store Website](#) _(Add the live site link here)_
+👉 **Live Site:** [Book Store Website](https://stellar-crisp-4109b2.netlify.app/)
 
 ## Project Description
 
