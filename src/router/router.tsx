@@ -13,6 +13,7 @@ import About from "../pages/About/About";
 import { userPath } from "./user.routes";
 import CheckoutPage from "../pages/dashboard/user/CheckoutPage/CheckoutPage";
 import UserDashboard from "../pages/dashboard/user/UserDashboard";
+import ProtectedRoute from "../layout/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +56,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminDashboard />,
+    element: (
+      <ProtectedRoute role="admin">
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
     children: routeGenerator(adminPaths),
   },
   {

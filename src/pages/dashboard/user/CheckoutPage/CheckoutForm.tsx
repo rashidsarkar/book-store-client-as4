@@ -68,6 +68,11 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("Adding order...");
+    if (data.quantity < 1) {
+      toast.error("Quantity cannot be less than 1", { id: toastId });
+      return;
+    }
+
     if (data.quantity > book.quantity) {
       toast.error("Quantity exceeds available stock", { id: toastId });
       return;
