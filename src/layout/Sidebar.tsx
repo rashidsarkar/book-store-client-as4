@@ -45,8 +45,8 @@ export default function Sidebar() {
   // Handle Logout
   const handleLogout = () => {
     console.log("Logging out...");
-    navigate("/");
     dispatch(logOut());
+    navigate("/");
     toast.info("You have been logged out");
   };
 

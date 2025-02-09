@@ -52,7 +52,7 @@ export default function ProfilePage() {
       <Card>
         <CardHeader>
           <h2 className="text-xl font-semibold">
-            {currentUser?.data?.name || "N/A"}
+            {currentUser?.data?.name || "Loading..."}
           </h2>
           <p className="text-gray-500">Manage your account password</p>
         </CardHeader>
