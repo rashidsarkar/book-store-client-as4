@@ -53,8 +53,8 @@ export default function AllOrderFromAdmin() {
     );
 
   const handleEdit = (order: TOrder) => {
-    setEditingId(order._id);
-    setSelectedStatus(order.status);
+    setEditingId(order?._id);
+    setSelectedStatus(order?.status);
   };
 
   const handleCancel = () => {
@@ -76,7 +76,7 @@ export default function AllOrderFromAdmin() {
         status: selectedStatus,
       }).unwrap();
       // console.log(res);
-      toast.success(res.message || "Order status updated successfully!", {
+      toast.success(res?.message || "Order status updated successfully!", {
         id: toastID,
       });
     } catch (error: any) {
@@ -109,34 +109,34 @@ export default function AllOrderFromAdmin() {
         <TableBody>
           {allOrders?.length > 0 ? (
             allOrders.map((order) => (
-              <TableRow key={order._id}>
+              <TableRow key={order?._id}>
                 <TableCell>
                   <img
-                    src={order.product.image}
-                    alt={order.product.name}
+                    src={order?.product?.image}
+                    alt={order?.product?.name}
                     className="object-cover w-12 h-12 rounded"
                   />
                 </TableCell>
-                <TableCell>{order.product.name}</TableCell>
-                <TableCell>{order.userId.name}</TableCell>
-                <TableCell>${order.totalPrice}</TableCell>
-                <TableCell>{order.quantity}</TableCell>
+                <TableCell>{order?.product?.name}</TableCell>
+                <TableCell>{order?.userId?.name}</TableCell>
+                <TableCell>${order?.totalPrice}</TableCell>
+                <TableCell>{order?.quantity}</TableCell>
                 <TableCell>
-                  {order.userId.address?.trim()
-                    ? order.userId.address
+                  {order?.userId?.address?.trim()
+                    ? order?.userId?.address
                     : "Address not provided"}
                 </TableCell>
                 <TableCell className="capitalize">
-                  {order.paymentMethod}
-                  {order.paymentMethod.toLowerCase() === "stripe" &&
-                    order.transactionId && (
+                  {order?.paymentMethod}
+                  {order?.paymentMethod.toLowerCase() === "stripe" &&
+                    order?.transactionId && (
                       <p className="mt-1 text-xs text-gray-500">
-                        Transaction ID: {order.transactionId}
+                        Transaction ID: {order?.transactionId}
                       </p>
                     )}
                 </TableCell>
                 <TableCell>
-                  {editingId === order._id ? (
+                  {editingId === order?._id ? (
                     <Select
                       value={selectedStatus}
                       onValueChange={(value) =>
@@ -155,7 +155,8 @@ export default function AllOrderFromAdmin() {
                       </SelectContent>
                     </Select>
                   ) : (
-                    order.status.charAt(0).toUpperCase() + order.status.slice(1)
+                    order?.status.charAt(0).toUpperCase() +
+                    order?.status.slice(1)
                   )}
                 </TableCell>
                 <TableCell className="flex space-x-2">
