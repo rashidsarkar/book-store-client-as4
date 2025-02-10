@@ -10,6 +10,7 @@ import { selectCurrentUser, logOut } from "../../redux/features/auth/authSlice";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { Menu, Dropdown } from "antd";
 import { userRole } from "../../layout/Sidebar";
+import "./navbar.css";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -111,8 +112,8 @@ const Navbar = () => {
       <ul
         className={`${
           nav
-            ? "fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-r-[#344CB7] bg-[#000957] ease-in-out duration-500"
-            : "ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%]"
+            ? "fixed z-20 md:hidden left-0 top-0 w-[60%] h-full border-r border-r-[#344CB7] bg-[#000957] ease-in-out duration-500"
+            : "ease-in-out w-[60%] duration-500   fixed top-0 bottom-0 left-[-100%]"
         }`}
       >
         <h1 className="w-full text-3xl font-bold text-[#FFEB00] m-4">
